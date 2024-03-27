@@ -1,0 +1,123 @@
+
+.textContainer {
+  display: block;
+  animation: fadeIn 1s ease-in-out; /* Adjust animation duration and timing function as needed */
+  top: 30%; 
+  left: 5%;
+  text-align: left;
+  width: 35%;
+  font-family: "Ubuntu", sans-serif;
+}
+ 
+ 
+  .textItem {
+    display: none;
+  }
+  
+  .textItem.active {
+    display: block;
+    animation: fadeIn 1s ease-in-out; /* Adjust animation duration and timing function as needed */
+    /* top: 25%;  */
+    left: 5%;
+    text-align: left;
+    /* width: 35%; */
+    font-family: "Ubuntu", sans-serif;
+  }
+
+ .socials{
+  left: 5%;
+  /* top: 50%;  */
+
+ }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-40px); 
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0); 
+    }
+  }
+  @keyframes fadeIn2 {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width:1024px) and (min-width:900px) {
+    .textContainer {
+        top: 20%; 
+        right: 5%;
+        font-size: 50px;
+        width: 35%;
+      }
+  }
+
+  @media screen and (max-width:900px) and (min-width:600px) {
+    .textContainer {
+        top: 15%; 
+        right: 5%;
+        font-size: 40px;
+        width: 40%;
+      }
+  }
+
+  @media screen and (max-width:600px) and (min-width:300px) {
+    .textContainer {
+        top: 12%; 
+        right: 5%;
+        font-size: 25px;
+        width: 45%;
+      }
+  }
+
+  @media screen and (max-width:300px) {
+    .textContainer {
+        top: 10%; 
+        right: 5%;
+        font-size: 20px;
+        width: 50%;
+      }
+  }
+
+
+  @keyframes wave {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .icon1 {
+    animation: wave 1.5s infinite;
+  }
+  
+  .icon2 {
+    animation: wave 1.5s infinite;
+    animation-delay: 0.2s; /* Delay for second icon */
+  }
+  
+  .icon3 {
+    animation: wave 1.5s infinite;
+    animation-delay: 0.4s; /* Delay for third icon */
+  }
+  
+  .icon4 {
+    animation: wave 1.5s infinite;
+    animation-delay: 0.6s; /* Delay for fourth icon */
+  }
+  
+  .icon5 {
+    animation: wave 1.5s infinite;
+    animation-delay: 0.8s; /* Delay for fifth icon */
+  }
