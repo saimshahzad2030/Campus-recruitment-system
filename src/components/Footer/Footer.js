@@ -5,9 +5,13 @@ import Link from 'next/link'
 const Footer = () => {
     const [query, setQuery] = useState('')
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full bg-gray-700 '>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full bg-gray-700 py-16'>
+            <div className=' py-4  flex flex-col items-center justify-start bg-gray-700 ml-4'>
+                <h1 className={`text-3xl sm:text-2xl  text-gray-50 font-bold ${style.heading}`}>About</h1>
+                <p className={`text-xl sm:text-lg text-gray-300 mt-4 text-center ${style.text}`}> Our motive is to provide students and companies a transparent system so that companies can find their employees based on merit </p>
+            </div>
             <div className=' py-4  flex flex-col items-center justify-start bg-gray-700 '>
-                <h1 className={`text-3xl sm:text-2xl  text-gray-50 font-bold ${style.heading}`}>Contact</h1>
+                <h1 className={`text-3xl sm:text-2xl  text-gray-50 font-bold ${style.heading}`}>Contact us</h1>
                 <p className={`text-xl sm:text-lg text-gray-300 mt-4 ${style.text}`}> +92 314 1234231</p>
                 <p className={`text-xl sm:text-lg text-gray-300 ${style.text}`}>+92 314 1234231</p>
             </div>
