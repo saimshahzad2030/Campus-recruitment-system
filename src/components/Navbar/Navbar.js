@@ -1,9 +1,12 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+
 import style from './Navbar.module.css';
 
 const Navbar = ({ links, linkNames }) => {
+    const router = usePathname(); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [menuLinksVisible, setMenuLinksVisible] = useState(false);
 
@@ -19,22 +22,20 @@ const Navbar = ({ links, linkNames }) => {
         } else {
             setMenuLinksVisible(false);
         }
-    }, [isMenuOpen]);
-    console.log(links)
-    console.log(linkNames)
+    }, [isMenuOpen]); 
     return (
         <>
-           
+
             <nav className={` relative top-0 left-0 w-full bg-gray-100 p-4 2xl:p-8 xl:p-4 lg:p-4 z-10 transition-all duration-300 ease-in-out`}>
                 <div className={`flex items-center justify-between `}>
                     <div className={`flex items-center justify-between flex-shrink-0 sm:w-full lg:w-full 2xl:w-full  `}>
-                        <Link href={'/'} className={`flex-row items-center`}>
+                        <Link href={links[0]} className={`flex-row items-center`}>
                             <img className={`h-16 w-auto sm:h-10 lg:h-14 md:h-12 xl:h-20 2xl:h-32`} src="/Assets/Logo/logo.jpg" alt="Logo" />
                         </Link>
                         <div className={`hidden sm:flex flex-grow flex flex-row items-center justify-end space-x-4 sm:space-x-1 lg:space-x-2 2xl:space-x-1 2xl:ml-4 xl:ml-4 lg:ml-4 md:ml-2 sm:ml-1`}>
 
                             {links.map((link, index) => (
-                                <Link key={link} href={`${link}`} className={`lg:text-lg 2xl:text-2xl xl:text-xl sm:text-md rounded-md px-3 2xl:py-4 py-2 2xl:px-8 lg:px-2 sm:px-1 lg:text-lg hover:text-gray-100 hover:bg-gray-700  transition-transform transform hover:scale-105 ${style.link}`}>
+                                <Link key={link} href={`${link}`} className={`lg:text-lg 2xl:text-2xl xl:text-xl sm:text-md rounded-md px-3 2xl:py-4 py-2 2xl:px-8 lg:px-2 sm:px-1 lg:text-lg hover:text-gray-100 hover:bg-gray-700  transition-transform transform hover:scale-105 ${style.link}  ${router===link?'bg-gray-700 text-gray-100':''}`}>
                                     {linkNames[index]}
                                 </Link>
                             ))}
@@ -46,7 +47,7 @@ const Navbar = ({ links, linkNames }) => {
 
                     <div className={`flex flex-row items-center ${style.socials}`}>
 
-                        
+
                         <div className={`sm:hidden`}>
                             <button onClick={toggleMenu} className={`text-gray-700`}>
                                 <svg className={`h-6 w-6`} fill="none" viewBox="0 0 24 24" stroke="currentColor">

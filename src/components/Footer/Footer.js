@@ -5,6 +5,8 @@ import Link from 'next/link'
 const Footer = () => {
     const [query, setQuery] = useState('')
     return (
+     <>
+     <div className='h-1 bg-gray-50'></div>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full bg-gray-700 py-16'>
             <div className=' py-4  flex flex-col items-center justify-start bg-gray-700 ml-4'>
                 <h1 className={`text-3xl sm:text-2xl  text-gray-50 font-bold ${style.heading}`}>About</h1>
@@ -53,6 +55,7 @@ const Footer = () => {
 
 
         </div>
+     </>
     )
 }
 

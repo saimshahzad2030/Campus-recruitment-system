@@ -1,9 +1,14 @@
-import React from 'react'
+"use client"
 
-const companydetails = () => {
-  return (
-    <div>companydetails</div>
-  )
-}
 
-export default companydetails
+import CompaniesDetails from '@/components/Companies-Details(User)/CompaniesDetails';
+import React  from 'react';
+
+const CompanyDetailsPage = () => {
+  
+  return( <>
+    <CompaniesDetails/>
+      </>)
+};
+
+export default CompanyDetailsPage;
