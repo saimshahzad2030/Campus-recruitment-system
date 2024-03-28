@@ -1,9 +1,12 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from './UserDetails.module.css'
 import { useRouter } from 'next/navigation';
+import { addStudentDetails, studentDetails, updateStudentDetails } from '@/utils/student';
+import Modal from '../Modal/Modal';
 const UserDetails = () => {
+    const [data,setData]=useState({})
     const router = useRouter()
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -13,28 +16,51 @@ const UserDetails = () => {
     const [obtainedMarks, setObtainedMarks] = useState()
     const [availabilty, setAvailability] = useState('')
     const [studentId,setStudentId] = useState('')
+    const [experience,setExperience] = useState('')
     const [formSubmitted, setFormSubmitted] = useState(false)
-
-
-
+    const [isUpdating,setIsUpdating] = useState(false)
+    const [loading,setLoading] = useState(false)
     const handleAgeChange = (e) => {
         const inputValue = e.target.value;
-        // Only allow numeric characters
         const numericInput = inputValue.replace(/[^0-9]/g, '');
         setAge(numericInput);
     };
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
-        setFormSubmitted(true)
+        if(isUpdating){
+            console.log('first')
+            updateStudentDetails(setLoading,setFormSubmitted,firstname,lastname,studentId,age,faculty,obtainedMarks,domainOfInterest,availabilty,experience)
+        }
+        else{
+            console.log('second')
+            addStudentDetails(setLoading,setFormSubmitted,firstname,lastname,studentId,age,faculty,obtainedMarks,domainOfInterest,availabilty,experience)
+        }
 
     };
-
+    useEffect(()=>{
+        studentDetails(setLoading,setFormSubmitted,setData)
+        
+        },[])
+        useEffect(() => {
+            if (data) {
+                setFirstname(data.firstname || '');
+                setLastname(data.lastname || '');
+                setAge(data.age || '');
+                setFaculty(data.faculty || '');
+                setDomainofInterest(data.position || '');
+                setObtainedMarks(data.obtainedmarks || '');
+                setAvailability(data.availability || '');
+                setStudentId(data.studentId || '');
+                setExperience(data.experience || '');
+            }
+        }, [data]);
     return (
 
         <>
-            <div className='bg-gray-700 py-12' style={{ display: formSubmitted ? 'none' : '' }}>
+      <Modal loading={loading}/>
+
+            <div className='bg-gray-700 py-12' style={{ display: formSubmitted  ? 'none' : '' }}>
                 <h1 className={`text-4xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}>Student Info</h1>
 
                 <div className="grid grid-cols-1  w-full">
@@ -123,7 +149,7 @@ const UserDetails = () => {
                                 </div>
 
                                 <div className="mb-2">
-                                    <label htmlFor="email" className="block text-gray-400 text-sm font-bold mb-2">
+                                    <label htmlFor="obtainedmarks" className="block text-gray-400 text-sm font-bold mb-2">
                                         Obtained marks
                                     </label>
                                     <input
@@ -166,7 +192,26 @@ const UserDetails = () => {
                                     </select>
                                 </div>
 
+                                <div className="mb-2">
+                                    <label htmlFor="experience" className="block text-gray-400 text-sm font-bold mb-2">
+                                       Experience
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="experience"
+                                        value={experience}
+                                        onChange={(e) => {
+                                            setExperience(e.target.value)
+                                        }
 
+                                        }
+                                    
+                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        placeholder='Enter Experience'
+
+                                        required
+                                    />
+                                </div>
                                 <div className="mb-2">
                                     <label htmlFor="availability" className="block text-gray-400 text-sm font-bold mb-2">
                                         Availability
@@ -201,40 +246,46 @@ const UserDetails = () => {
 
             </div>
 
-            <div className='flex flex-col items-center bg-gray-700 w-full'  style={{ display: formSubmitted ? '' : 'none' }}>
+            <div className='flex flex-col items-center bg-gray-700 w-full'  style={{ display: formSubmitted  ? '' : 'none' }}>
                 <div className={` py-8 w-full`}>
-                    <h1 className={`text-5xl font-bold mb-12 text-center w-full text-gray-50 ${style.heading}`}>Mirza Saim Shahzad - {studentId}</h1>
+                    <h1 className={`text-3xl sm:text-5xl font-bold mb-12 text-center w-full text-gray-50 ${style.heading}`}>{data.firstname!==undefined?data.firstname:firstname} { data.lastname!==undefined?data.lastname:lastname} - {data.studentId!==undefined?data.studentId:studentId}</h1>
                     <div className={`grid grid-cols-1 sm:grid-cols-2  w-full`}>
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Age</h1>
                             <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
-                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am {age} years old.</p>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am {data.age!==undefined?data.age:age} years old.</p>
                             </div>
                         </div>
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Faculty</h1>
                             <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
-                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am currently enrolled in {faculty} faculty.</p>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am currently enrolled in {data.faculty!==undefined?data.faculty:faculty} faculty.</p>
                             </div>
                         </div>
 
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Performance</h1>
                             <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
-                                <p className={`py-4 text-md ${style.subHeadingText}`}>I have secured {obtainedMarks} marks out of 200.</p>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I have secured {data.obtainedmarks!==undefined?data.obtainedmarks:obtainedMarks} marks out of 200.</p>
                             </div>
                         </div>
 
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Work Stack</h1>
                             <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
-                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am a passionate {domainOfInterest}.</p>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am a passionate {data.position!==undefined?data.position:domainOfInterest}.</p>
+                            </div>
+                        </div>
+                        <div className={`flex flex-col align-start  m-4`}>
+                            <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Experience</h1>
+                            <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I have {data.experience!==undefined?data.experience:experience} of professional experience.</p>
                             </div>
                         </div>
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Availability</h1>
                             <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
-                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am looking for a {availabilty} job.</p>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am looking for a {data.availability!==undefined?data.availability:availabilty} job.</p>
                             </div>
                         </div>
                     </div>
@@ -243,7 +294,13 @@ const UserDetails = () => {
                 <button
                                 
                                 className="text-lg bg-gray-50 hover:bg-gray-700 hover:border-solid hover:border-2 hover:border-gray-50 hover:text-gray-50 text-gray-700 font-bold mb-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            onClick={()=>setFormSubmitted(false)}
+                            onClick={()=>{
+setFormSubmitted(false)
+setIsUpdating(true)
+                            }
+                            
+                            
+                            }
                             
                             >
                                 Update

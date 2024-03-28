@@ -1,12 +1,15 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import style from './ApplicationTable.module.css'
+import { cancelApplication, userApplications } from '@/utils/applications'
+import { Modak } from 'next/font/google'
+import Modal from '../Modal/Modal'
 const ApplicationTable = () => {
-    const [applications, setApplications] = useState([
-        { id: 1, companyName: 'Company A', role: 'Teacher', location: 'Surjani Town',status:'not seen' },
-        { id: 2, companyName: 'Company B', role: 'Software Engineer', location: 'Karachi',status:'rejected' },
-    ]);
+    const [loading, setLoading] = useState(false)
+  
+    
+    const [applications, setApplications] = useState([]);
     const [id,setId] = useState(0)
     const handleCancelApplication = (id) => {
         setShowAlert(true)
@@ -15,16 +18,21 @@ const ApplicationTable = () => {
     const [showAlert, setShowAlert] = useState(false);
     
     const handleConfirm = () => {
-        
-        setApplications(applications.filter(app => app.id !== id));
+        cancelApplication(setLoading,id)
+        setApplications(applications.filter(app => app._id !== id));
         setShowAlert(false);
     };
 
     const handleCancel = () => {
         setShowAlert(false);
     };
+
+    useEffect(()=>{
+        userApplications(setLoading,setApplications)
+    },[])
     return (
         <>
+        <Modal loading={loading}/>
           {showAlert && (
                 <div className={`absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ${style.main}`}>
                     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity"></div>
@@ -64,14 +72,14 @@ const ApplicationTable = () => {
                 <tbody>
                     {applications.map(application => (
                         <tr key={application.id}>
-                            <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.companyName}</td>
-                            <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.role}</td>
+                            <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.companyname}</td>
+                            <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.position}</td>
                             <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.location}</td>
                             <td className={`px-4 py-4 border text-center font-bold ${style.headers} ${application.status ==='rejected'?'text-red-600':application.status==='not seen'?'text-blue-600':application.status === 'approved'?'text-green-500':''}`}>{application.status}</td>
                             <td className={`px-4 py-4 border text-center ${style.headers}`}>
                                 <button
                                     className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                    onClick={() => handleCancelApplication(application.id)}
+                                    onClick={() => handleCancelApplication(application._id)}
                                 >
                                     Cancel
                                 </button>

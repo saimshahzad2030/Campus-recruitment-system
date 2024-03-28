@@ -1,5 +1,5 @@
 import React from 'react'
-
+import style from './Modal.module.css'
 const Modal = ({loading}) => {
     return (
         loading && (
