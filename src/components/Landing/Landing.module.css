@@ -121,3 +121,8 @@
     animation: wave 1.5s infinite;
     animation-delay: 0.8s; /* Delay for fifth icon */
   }
+
+  .main,.headers{
+    font-family: "Tauri", sans-serif;
+
+}

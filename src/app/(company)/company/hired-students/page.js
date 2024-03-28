@@ -1,8 +1,9 @@
+import HiredStudents from '@/components/Hired-Students/HiredStudents'
 import React from 'react'
 
 const hiredstudentspage = () => {
   return (
-    <div></div>
+    <HiredStudents/>
   )
 }
 

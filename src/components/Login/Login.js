@@ -7,6 +7,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [companyName, setCompanyname] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
     const [token,setToken]=useState('')
@@ -65,6 +66,21 @@ const Login = () => {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          />
+        </div>
+      )}
+      {!isLogin && emailVerified && isChecked && (
+        <div className="mb-4">
+          <label htmlFor="companyname" className="block text-gray-400 text-sm font-bold mb-2">
+            Company Name
+          </label>
+          <input
+            type="text"
+            id="companyname"
+            value={companyName}
+            onChange={(e) => setCompanyname(e.target.value)}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />

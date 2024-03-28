@@ -20,7 +20,7 @@ const Landing = () => {
   }, []);
 
   return (
-    <div className='relative w-full'>
+    <div className={`relative w-full ${style.main}`}>
       <img src={images[textIndex]} alt='landing logo' className={`opacity-70 ${style.image}`} />
 
       <div className={`absolute top-1/4 w-10/12 flex flex-col items-start  ${style.socials}   rounded-lg`}>

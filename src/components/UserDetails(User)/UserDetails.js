@@ -12,6 +12,7 @@ const UserDetails = () => {
     const [domainOfInterest, setDomainofInterest] = useState('')
     const [obtainedMarks, setObtainedMarks] = useState()
     const [availabilty, setAvailability] = useState('')
+    const [studentId,setStudentId] = useState('')
     const [formSubmitted, setFormSubmitted] = useState(false)
 
 
@@ -75,7 +76,21 @@ const UserDetails = () => {
                                         required
                                     />
                                 </div>
+                                <div className="mb-2">
+                                    <label htmlFor="email" className="block text-gray-400 text-sm font-bold mb-2">
+                                        Student Id
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="studentid"
+                                        value={studentId}
+                                        onChange={(e) => setStudentId(e.target.value)}
+                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        placeholder="Enter your StudentId"
 
+                                        required
+                                    />
+                                </div>
                                 <div className="mb-2">
                                     <label htmlFor="age" className="block text-gray-400 text-sm font-bold mb-2">
                                         Age
@@ -188,7 +203,7 @@ const UserDetails = () => {
 
             <div className='flex flex-col items-center bg-gray-700 w-full'  style={{ display: formSubmitted ? '' : 'none' }}>
                 <div className={` py-8 w-full`}>
-                    <h1 className={`text-5xl font-bold mb-12 text-center w-full text-gray-50 ${style.heading}`}>Mirza Saim Shahzad</h1>
+                    <h1 className={`text-5xl font-bold mb-12 text-center w-full text-gray-50 ${style.heading}`}>Mirza Saim Shahzad - {studentId}</h1>
                     <div className={`grid grid-cols-1 sm:grid-cols-2  w-full`}>
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Age</h1>

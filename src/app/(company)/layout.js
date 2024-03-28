@@ -1,14 +1,12 @@
+"use client"
 import Copyright from '@/components/Copyright/Copyright'
 import Footer from '@/components/Footer/Footer'
 import Navbar from '@/components/Navbar/Navbar'
-import React from 'react'
-
+import React from 'react' 
 const layout = ({children}) => {
   
-  
-  
     return <>
-    <Navbar links = {['/company/home','/company/company-details','/company/students','/company/hired-students']} linkNames = {['Home','Company Detail','Students','Hired Students']}/>
+    <Navbar links = {['/company/home','/company/roles','/company/role-details','/company/students','/company/applications','/company/hired-students']} linkNames = {['Home','Roles','Role Details','Students','Applications','Hired Students']}/>
 
     {children}
     <Footer/>

@@ -8,7 +8,7 @@ const layout = ({children}) => {
   
   
     return <>
-    <Navbar links = {['/admin/home','/admin/companies','/admin/students']} linkNames = {['Home','Companies','Students']}/>
+    <Navbar links = {['/admin/home','/admin/companies','/admin/students','/admin/student-details','/admin/jobs-details']} linkNames = {['Home','Companies','Students','Student Details','Jobs Position']}/>
 
     {children}
     <Footer/>
