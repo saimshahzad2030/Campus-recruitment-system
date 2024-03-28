@@ -6,7 +6,7 @@ import React from 'react'
 const layout = ({children}) => {
   
     return <>
-    <Navbar links = {['/company/home','/company/roles','/company/role-details','/company/students','/company/applications','/company/hired-students']} linkNames = {['Home','Roles','Role Details','Students','Applications','Hired Students']}/>
+    <Navbar links = {['/company/home','/company/jobs','/company/job-details','/company/students','/company/applications','/company/hired-students']} linkNames = {['Home','jobs','job Details','Students','Applications','Hired Students']}/>
 
     {children}
     <Footer/>

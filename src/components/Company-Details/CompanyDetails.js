@@ -22,7 +22,7 @@ const SuspenseFunction = () => {
         <>
        
              <div className={`bg-gray-700 py-12 ${style.main}`}>
-                    <h1 className={`text-4xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}>Role Info</h1>
+                    <h1 className={`text-4xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}>Job Info</h1>
     
                     <div className="grid grid-cols-1  w-full">
     
@@ -140,7 +140,7 @@ const SuspenseFunction = () => {
                                     className="text-lg mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                
                                >
-                                    Save Role
+                                    Save Job
                                 </button>
                             </form>
                         </div>

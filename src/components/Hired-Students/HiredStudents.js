@@ -6,11 +6,11 @@ import style from './HiredStudents.module.css'
 const HiredStudents = () => {
 
     const [students, setStudents] = useState([
-        { id: 1, firstname: 'John', lastname: 'Doe', obt: '90',role:'teacher',availability:'part-time' , faculty: 'Computer Science', tech: 'React', exp: '2 years' },
-        { id: 2, firstname: 'Jane', lastname: 'Smith', obt: '85',role:'teacher',availability:'part-time' , faculty: 'Electrical Engineering', tech: 'Python', exp: '1 year' },
-        { id: 3, firstname: 'Alice', lastname: 'Johnson', obt: '95',role:'teacher',availability:'part-time' , faculty: 'Mechanical Engineering', tech: 'JavaScript', exp: '3 years' },
-        { id: 4, firstname: 'Bob', lastname: 'Williams', obt: '75',role:'teacher',availability:'part-time' , faculty: 'Civil Engineering', tech: 'Angular', exp: '1.5 years' },
-        { id: 5, firstname: 'Emma', lastname: 'Brown', obt: '80',role:'teacher',availability:'part-time' , faculty: 'Chemical Engineering', tech: 'Vue.js', exp: '2.5 years' }
+        { id: 1, firstname: 'John', lastname: 'Doe', obt: '90',job:'teacher',availability:'part-time' , faculty: 'Computer Science', tech: 'React', exp: '2 years' },
+        { id: 2, firstname: 'Jane', lastname: 'Smith', obt: '85',job:'teacher',availability:'part-time' , faculty: 'Electrical Engineering', tech: 'Python', exp: '1 year' },
+        { id: 3, firstname: 'Alice', lastname: 'Johnson', obt: '95',job:'teacher',availability:'part-time' , faculty: 'Mechanical Engineering', tech: 'JavaScript', exp: '3 years' },
+        { id: 4, firstname: 'Bob', lastname: 'Williams', obt: '75',job:'teacher',availability:'part-time' , faculty: 'Civil Engineering', tech: 'Angular', exp: '1.5 years' },
+        { id: 5, firstname: 'Emma', lastname: 'Brown', obt: '80',job:'teacher',availability:'part-time' , faculty: 'Chemical Engineering', tech: 'Vue.js', exp: '2.5 years' }
     ]);
     const [id,setId] = useState(0)
     const handleRejectHireButton = (id) => {
@@ -61,7 +61,7 @@ const HiredStudents = () => {
      <thead>
          <tr>
               <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Student Id</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Role</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Job</th>
              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Reject Hiring</th>
          </tr>
      </thead>
@@ -69,7 +69,7 @@ const HiredStudents = () => {
          {students.map(student => (
              <tr key={student.id}>
                  <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.id}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.role}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.job}</td>
                  <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
                      <button
                          className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

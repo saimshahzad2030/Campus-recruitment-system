@@ -9,7 +9,7 @@ const CompanySection = () => {
                 <div className={`m-8 py-12 bg-gray-700 flex justify-center items-center rounded-lg lg:m-8 sm:m-12 `}>
                     <div className={`flex flex-col items-center justify-center`}>
                         <h2 className={`text-white text-center font-bold text-3xl ${style.divHeading}`}>Company requirement</h2>
-                        <p className={`mt-4 px-4 sm:px-4 lg:px-8 text-white text-center text-lg ${style.divText}`}>Add the details of the role company is looking for</p>
+                        <p className={`mt-4 px-4 sm:px-4 lg:px-8 text-white text-center text-lg ${style.divText}`}>Add the details of the position company is looking for</p>
                         <Link href={`/company/company-details`}>
 
                             <button className={`bg-white text-gray-700 px-4 py-2 mt-4 inline-block rounded-lg`}>Proceed</button>

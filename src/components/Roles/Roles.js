@@ -4,9 +4,9 @@ import style from './Roles.module.css'
 import {useRouter } from 'next/navigation'
 const Roles = () => {
     const router = useRouter()
-    const [roles, setRoles] = useState([
-        { id: 1,  role: 'Teacher', location: 'Surjani Town', type: 'Full time',experience:'2 years',message: 'We are currently seeking talented Software Engineers to join our team. Apply now!' },
-        { id: 2, role: 'Software Engineer', location: 'Karachi', type: 'Internship',experience:'fresh',message: 'We are currently seeking talented Software Engineers to join our team. Apply now!' },
+    const [jobs, setJobs] = useState([
+        { id: 1,  job: 'Teacher', location: 'Surjani Town', type: 'Full time',experience:'2 years',message: 'We are currently seeking talented Software Engineers to join our team. Apply now!' },
+        { id: 2, job: 'Software Engineer', location: 'Karachi', type: 'Internship',experience:'fresh',message: 'We are currently seeking talented Software Engineers to join our team. Apply now!' },
     ]);
     const [iD,setId] = useState(0)
     const [alertType,setAlertType] = useState('delete')
@@ -27,20 +27,20 @@ const Roles = () => {
     
     const handleConfirm = (id) => {
         if(alertType == 'delete'){
-        setRoles(roles.filter(app => app.id !== id));
+        setJobs(jobs.filter(app => app.id !== id));
             
         setShowAlert(false);
         }
         else{
 
         
-        const roleToEdit = roles.find(role => role.id === id);
+        const roleToEdit = jobs.find(role => role.id === id);
         console.log(roleToEdit)
         const queryParams =  roleToEdit;
         const queryString = new URLSearchParams(queryParams).toString();
         if (roleToEdit) {
             router.push(
-                `/company/role-details?${queryString}`
+                `/company/job-details?${queryString}`
             );
         } else {
             console.error('Invalid role ID');
@@ -77,35 +77,35 @@ const Roles = () => {
                 </div>
             )}
 
-{roles &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{roles.length===0?'No roles to show':'Published Roles'}</h1>
+{jobs &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{jobs.length===0?'No jobs to show':'Published Jobs'}</h1>
 }
- {roles && roles.length>0 &&
+ {jobs && jobs.length>0 &&
  <div className={`overflow-x-auto ${style.main}`}>
  <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
      <thead>
          <tr>
-              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Role</th>
+              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Job</th>
              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Location</th>
              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Employment Type</th>
              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Action</th>
          </tr>
      </thead>
      <tbody>
-         {roles.map(role => (
-             <tr key={role.id}>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{role.role}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{role.location}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{role.type}</td>
+         {jobs.map(job => (
+             <tr key={job.id}>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.job}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.location}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.type}</td>
                  <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
                  <button
                          className="m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleEditRole(role.id)}
+                         onClick={() => handleEditRole(job.id)}
                      >
                          Edit
                      </button>
                      <button
                          className="m-2 text-lg bg-red-600 text-gray-50 font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleDeleteRole(role.id)}
+                         onClick={() => handleDeleteRole(job.id)}
                      >
                          Cancel
                      </button>
