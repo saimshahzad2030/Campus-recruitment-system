@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import style from './CompaniesDetails.module.css'
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 const CompaniesDetails = () => {
     const router = useRouter();
 
-    const goBack = () => {
-        router.back();
-    };
+ 
 
     const [companyclicked, setcompanyClicked] = useState(false)
     const [selectedCompany, setSelectedCompany] = useState({})
