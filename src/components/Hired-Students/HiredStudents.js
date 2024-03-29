@@ -56,23 +56,23 @@ const [loading,setLoading] = useState(false)
 {students && !loading &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{students.length===0?'No hired Students to show':'Hired Students'}</h1>
 }
  {students && !loading &&   students.length>0 &&
- <div className={`overflow-x-auto ${style.main}`}>
+ <div className={`overflow-x-auto `}>
  <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
      <thead>
          <tr>
-              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Student Id</th>
-              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Student email</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Job</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Reject Hiring</th>
+              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Student Id</th>
+              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Student email</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Job</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Reject Hiring</th>
          </tr>
      </thead>
      <tbody>
          {students.map(student => (
              <tr key={student.id}>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.studentId}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.email}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.position}</td>
-                 <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
+                 <td className={`px-4 py-4 border text-center `}>{student.studentId}</td>
+                 <td className={`px-4 py-4 border text-center `}>{student.email}</td>
+                 <td className={`px-4 py-4 border text-center `}>{student.position}</td>
+                 <td className={`px-4 py-4 border flex flex-row items-center justify-evenly `}>
                      <button
                          className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                          onClick={() => handleRejectHireButton(student._id)}

@@ -57,25 +57,25 @@ const Companies = () => {
                 </div>
             )}
 
-            {companies && <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{companies.length === 0 ? 'No Companies to show' : 'Companies Details'}</h1>}
+            {companies && !loading && <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{companies.length === 0 ? 'No Companies to show' : 'Companies Details'}</h1>}
             {companies && companies.length > 0 &&
-                <div className={`overflow-x-auto ${style.main}`}>
+                <div className={`overflow-x-auto `}>
                     <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
                         <thead>
                             <tr>
-                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Name</th>
-                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Email</th>
-                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Username</th>
-                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Action</th>
+                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Name</th>
+                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Email</th>
+                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Username</th>
+                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {companies.map(company => (
                                 <tr key={company._id} >
-                                    <td className={`px-4 py-4 border text-center ${style.headers}`}>{company.name}</td>
-                                    <td className={`px-4 py-4 border text-center ${style.headers}`}>{company.email}</td>
-                                    <td className={`px-4 py-4 border text-center ${style.headers}`}>{company.username}</td>
-                                    <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
+                                    <td className={`px-4 py-4 border text-center `}>{company.name}</td>
+                                    <td className={`px-4 py-4 border text-center `}>{company.email}</td>
+                                    <td className={`px-4 py-4 border text-center `}>{company.username}</td>
+                                    <td className={`px-4 py-4 border flex flex-row items-center justify-evenly `}>
                                         <button
                                             className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                             onClick={() => handleDeleteButton(company._id,company.email)}

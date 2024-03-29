@@ -10,12 +10,6 @@ import { allJobsPosted } from '@/utils/jobs';
 const CompaniesDetails = () => {
     const router = useRouter();
 
-    const [messageApi, contextHolder] = message.useMessage();
-    const info = (message) => {
-      messageApi.info(message);
-    };
-    
-
     const [loading, setLoading] = useState(false)
     const [dataExist,setDataExist] = useState(null)
     const [companyclicked, setcompanyClicked] = useState(false)
@@ -36,14 +30,13 @@ const CompaniesDetails = () => {
 
     return (
         <>
-        {contextHolder}
         <Modal loading={loading}/>
         <div className={`flex flex-col items-center ${style.main}`}>
-            <h1 className={`text-center text-3xl sm:text-5xl font-bold my-12 ${style.text}`}
+      { !loading &&  <h1 className={`text-center text-3xl sm:text-5xl font-bold my-12 ${style.text}`}
 
                 style={{ display: companyclicked ? 'none' : '' }}
 
-            >Companies Details</h1>
+            >Companies Details</h1>}
             <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:bg-white w-11/12 mb-8`}
 
                 style={{ display: companyclicked ? 'none' : '' }}

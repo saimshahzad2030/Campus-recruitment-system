@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from './Login.module.css'
 import { useRouter } from 'next/navigation';
 import Modal from '../Modal/Modal';
 import { sendVerificationEmail } from '@/utils/verificationEmail';
 import { matchToken } from '@/utils/matchToken';
-import { Signup, login } from '@/utils/UserLogin';
+import { Signup, autoLogin, login } from '@/utils/UserLogin';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -66,6 +66,21 @@ const Login = () => {
     }
 
   };
+  useEffect(()=>{
+    autoLogin(setLoading,(role) => {
+      if (role === 'student') {
+        router.push('/student/home');
+      }
+      else if(role ==='company'){
+        router.push('/company/home');
+
+      } 
+      else if(role === 'admin') {
+        router.push('/admin/home');
+      }
+      
+    })
+  },[])
   return (
 
     <div className='bg-gray-700 py-12'>

@@ -6,3 +6,7 @@
 .avatar{
     margin-bottom: 10px;
 }
+
+.main{
+    z-index: 9999;
+}

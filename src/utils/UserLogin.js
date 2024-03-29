@@ -19,9 +19,9 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
           }
       }
     } catch (error) {
-      setLoading(false)
       setLoginSuccesfull(false)
-      console.log(error.response.data)
+      setLoading(false)
+      alert(error.response.data.message)
     }
   }
 
@@ -50,6 +50,34 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
     } catch (error) {
       setLoading(false)
       setSignupSuccesfull(false)
-      console.log(error.response.data)
+      alert(error.response.data.message)
+
     }
   }
+
+  export const autoLogin = async(setLoading,callback)=>{
+    try {
+      const token = Cookies.get('token');
+      setLoading(true)
+      const response = await axios.get(
+        'https://crs-backend.vercel.app/api/authenticate',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+        if(response.status ===200){
+          
+        if (callback) {
+          callback(response.data.role);
+        }
+        }
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+      
+      
+    }
+  }
+  

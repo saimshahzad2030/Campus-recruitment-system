@@ -55,23 +55,23 @@ allStudents(setLoading,setStudents)
                 </div>
             )}
 
-            {students && <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{students.length === 0 ? 'No students to show' : 'Students'}</h1>}
+            {students && !loading && <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{students.length === 0 ? 'No students to show' : 'Students'}</h1>}
             {students && students.length > 0 &&
-                <div className={`overflow-x-auto ${style.main}`}>
+                <div className={`overflow-x-auto`}>
                     <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
                         <thead>
                             <tr>
-                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Email</th>
-                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Username</th>
-                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Action</th>
+                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Email</th>
+                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Username</th>
+                                <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {students && students.map(student => (
                                 <tr key={student.id}>
-                                    <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.email}</td>
-                                    <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.username}</td>
-                                    <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
+                                    <td className={`px-4 py-4 border text-center `}>{student.email}</td>
+                                    <td className={`px-4 py-4 border text-center `}>{student.username}</td>
+                                    <td className={`px-4 py-4 border flex flex-row items-center justify-evenly `}>
                                         <button
                                             className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                             onClick={() => handleDeleteButton(student._id)}

@@ -82,26 +82,26 @@ const Roles = () => {
                 </div>
             )}
 
-{jobs &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{jobs.length===0?'No jobs to show':'Published Jobs'}</h1>
+{jobs && !loading &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{jobs.length===0?'No jobs to show':'Published Jobs'}</h1>
 }
  {jobs && jobs.length>0 &&
  <div className={`overflow-x-auto ${style.main}`}>
  <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
      <thead>
          <tr>
-              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Job</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Location</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Employment Type</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Action</th>
+              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Job</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Location</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Employment Type</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Action</th>
          </tr>
      </thead>
      <tbody>
          {jobs.map(job => (
              <tr key={job.id}>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.position}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.location}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.availability}</td>
-                 <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
+                 <td className={`px-4 py-4 border text-center `}>{job.position}</td>
+                 <td className={`px-4 py-4 border text-center `}>{job.location}</td>
+                 <td className={`px-4 py-4 border text-center `}>{job.availability}</td>
+                 <td className={`px-4 py-4 border flex flex-row items-center justify-evenly `}>
                  <button
                          className="m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-2 rounded sm:w-4/12    focus:outline-none focus:shadow-outline"
                          onClick={() => handleEditRole(job._id)}

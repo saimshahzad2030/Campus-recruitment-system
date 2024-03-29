@@ -1,23 +1,37 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-
+import { usePathname,useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import style from './Navbar.module.css';
 
 const Navbar = ({ links, linkNames }) => {
     const router = usePathname(); 
+    const route = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [menuLinksVisible, setMenuLinksVisible] = useState(false);
-
+    
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     const handleMenuLinkClick = () => {
-        setIsMenuOpen(false); // Close the menu when a menu link is clicked
+        setIsMenuOpen(false); 
+    };
+    const [showAlert, setShowAlert] = useState(false);
+    const handleLogout = (student) => {
+        setShowAlert(true)
+    };
+    
+    const handleConfirm = () => {
+        route.push('/')
+        setShowAlert(false);
+        Cookies.remove('token')
     };
 
+    const handleCancel = () => {
+        setShowAlert(false);
+    };
     useEffect(() => {
         if (isMenuOpen) {
             setTimeout(() => {
@@ -27,10 +41,33 @@ const Navbar = ({ links, linkNames }) => {
             setMenuLinksVisible(false);
         }
     }, [isMenuOpen]); 
-
+   
     return (
         <>
-            <nav className={` relative top-0 left-0 w-full bg-gray-100 p-4 2xl:p-8 xl:p-4 lg:p-4 z-10 transition-all duration-300 ease-in-out`}>
+         {showAlert && (
+                <div className={`absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ${style.main}`}>
+                    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity"></div>
+                    <div className="bg-white p-4 rounded shadow-md z-10 transform transition-all">
+                        <p className="text-lg text-gray-800 mb-4">Are you sure you want to logout?</p>
+                        <div className="flex justify-center">
+                            <button
+                                onClick={handleConfirm}
+                                className={`bg-red-600 hover:bg-green-300 text-white font-bold py-2 px-4 rounded mr-4`}
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                onClick={handleCancel}
+                                className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <nav className={` sticky  top-0 left-0 w-full bg-gray-100 p-4 2xl:p-8 xl:p-4 lg:p-4 z-10 transition-all duration-300 ease-in-out`}>
                 <div className={`flex items-center justify-between `}>
                     <div className={`flex items-center justify-between flex-shrink-0 sm:w-full lg:w-full 2xl:w-full  `}>
                         <Link href={links[0]} className={`flex-row items-center`}>
@@ -43,6 +80,11 @@ const Navbar = ({ links, linkNames }) => {
                                     {linkNames[index]}
                                 </Link>
                             ))}
+                          <button className="text-md sm:text-lg bg-red-600 text-gray-50 font-bold py-1 px-1 sm:py-1 sm:px-2 md:py-2 md:px-3 rounded focus:outline-none focus:shadow-outline"
+                          onClick={()=>handleLogout()}
+                          >
+                            Logout
+                          </button>
                         </div>
 
                     </div>
@@ -71,6 +113,11 @@ const Navbar = ({ links, linkNames }) => {
                                     {linkNames[index]}
                                 </Link>
                             ))}
+                             <button className="mt-4 text-xl  bg-red-600 text-gray-50 font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+                          onClick={()=>handleLogout()}
+                          >
+                            Logout
+                          </button>
                         </div>
                     </div>
                 )}
