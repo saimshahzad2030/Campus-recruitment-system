@@ -2,12 +2,12 @@
 import React,{useState,useEffect} from 'react'
 import style from './Roles.module.css'
 import {useRouter } from 'next/navigation'
+import { companyJobs, deleteJob } from '@/utils/jobs'
+import Modal from '../Modal/Modal'
 const Roles = () => {
     const router = useRouter()
-    const [jobs, setJobs] = useState([
-        { id: 1,  job: 'Teacher', location: 'Surjani Town', type: 'Full time',experience:'2 years',message: 'We are currently seeking talented Software Engineers to join our team. Apply now!' },
-        { id: 2, job: 'Software Engineer', location: 'Karachi', type: 'Internship',experience:'fresh',message: 'We are currently seeking talented Software Engineers to join our team. Apply now!' },
-    ]);
+    const [loading,setLoading] = useState(false)
+    const [jobs, setJobs] = useState([]);
     const [iD,setId] = useState(0)
     const [alertType,setAlertType] = useState('delete')
     
@@ -27,18 +27,18 @@ const Roles = () => {
     
     const handleConfirm = (id) => {
         if(alertType == 'delete'){
-        setJobs(jobs.filter(app => app.id !== id));
-            
+        deleteJob(setLoading,id)
+        setJobs(jobs.filter(app => app._id !== id));
         setShowAlert(false);
         }
         else{
 
         
-        const roleToEdit = jobs.find(role => role.id === id);
-        console.log(roleToEdit)
-        const queryParams =  roleToEdit;
+        const jobToEdit = jobs.find(job => job._id === id);
+        console.log(jobToEdit)
+        const queryParams =  jobToEdit;
         const queryString = new URLSearchParams(queryParams).toString();
-        if (roleToEdit) {
+        if (jobToEdit) {
             router.push(
                 `/company/job-details?${queryString}`
             );
@@ -52,8 +52,13 @@ const Roles = () => {
     const handleCancel = () => {
         setShowAlert(false);
     };
+    useEffect(()=>{
+        companyJobs(setLoading,setJobs)
+
+    },[])
   return (
    <>
+   <Modal loading={loading}/>
     {showAlert && (
                 <div className={`absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ${style.main}`}>
                     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity"></div>
@@ -93,19 +98,19 @@ const Roles = () => {
      <tbody>
          {jobs.map(job => (
              <tr key={job.id}>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.job}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.position}</td>
                  <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.location}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.type}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.availability}</td>
                  <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
                  <button
-                         className="m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleEditRole(job.id)}
+                         className="m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-2 rounded sm:w-4/12    focus:outline-none focus:shadow-outline"
+                         onClick={() => handleEditRole(job._id)}
                      >
                          Edit
                      </button>
                      <button
-                         className="m-2 text-lg bg-red-600 text-gray-50 font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleDeleteRole(job.id)}
+                         className="m-2 text-lg bg-red-600 text-gray-50 font-bold py-2 px-2 rounded  sm:w-4/12  focus:outline-none focus:shadow-outline"
+                         onClick={() => handleDeleteRole(job._id)}
                      >
                          Cancel
                      </button>

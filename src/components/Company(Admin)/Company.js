@@ -1,26 +1,26 @@
 "use client"
 // Students.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './Company.module.css';
-
+import { allCompanies, deleteCompany } from '@/utils/admin-utils';
+import Modal from '../Modal/Modal';
 const Companies = () => {
     const [companies, setCompanies] = useState([
-        { id: 1, email: 'company123@yahoo.com', username: 'company1',name:'Company B' },
-        { id: 2, email: 'companyasd@gmail.com', username: 'company2',name:'Company C' },
-        { id: 3, email: 'companyavc@example.com', username: 'company3',name:'Company A' },
-        { id: 4, email: 'companyasd@abc.com', username: 'company4',name:'Company E' },
     ]);
-
-    const handleDeleteButton = (id) => {
-        setShowAlert(true);
-        setId(id);
-    };
-
+    const [loading,setLoading] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
     const [id, setId] = useState(0);
+    const [email, setEmail] = useState('');
+    const handleDeleteButton = (id,email) => {
+        setShowAlert(true);
+        setId(id);
+        setEmail(email);
+    };
+    
 
     const handleConfirm = () => {
-        setCompanies(companies.filter(company => company.id !== id));
+        deleteCompany(setLoading,id,email)
+        setCompanies(companies.filter(company => company._id !== id));
         setShowAlert(false);
     };
 
@@ -28,8 +28,12 @@ const Companies = () => {
         setShowAlert(false);
     };
 
+    useEffect(()=>{
+        allCompanies(setLoading,setCompanies)
+    },[])
     return (
         <>
+        <Modal loading = {loading}/>
             {showAlert && (
                 <div className={`absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ${style.main}`}>
                     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity"></div>
@@ -67,14 +71,14 @@ const Companies = () => {
                         </thead>
                         <tbody>
                             {companies.map(company => (
-                                <tr key={company.id}>
+                                <tr key={company._id} >
                                     <td className={`px-4 py-4 border text-center ${style.headers}`}>{company.name}</td>
                                     <td className={`px-4 py-4 border text-center ${style.headers}`}>{company.email}</td>
                                     <td className={`px-4 py-4 border text-center ${style.headers}`}>{company.username}</td>
                                     <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
                                         <button
                                             className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                            onClick={() => handleDeleteButton(company.id)}
+                                            onClick={() => handleDeleteButton(company._id,company.email)}
                                         >
                                             Delete
                                         </button>

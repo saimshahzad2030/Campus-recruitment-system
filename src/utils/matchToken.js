@@ -4,7 +4,7 @@ export const matchToken =  async (email,token,setLoading,setemailVerified) => {
     setLoading(true)
   
     try {
-      const response = await axios.post('http://localhost:4000/api/match-token', {
+      const response = await axios.post('https://crs-backend.vercel.app/api/match-token', {
         email: email,
         token:token
       });

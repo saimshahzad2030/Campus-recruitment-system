@@ -55,9 +55,9 @@ const ApplicationTable = () => {
                     </div>
                 </div>
             )}
-            {applications &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{applications.length===0?'No Applications to show':'Your Applications'}</h1>
+            {applications  && !loading &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{applications.length===0 ?'No Applications to show':'Your Applications'}</h1>
            }
-            {applications && applications.length>0 &&
+            {applications && !loading && applications.length>0 &&
             <div className={`overflow-x-auto ${style.main}`}>
             <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
                 <thead>
@@ -75,7 +75,7 @@ const ApplicationTable = () => {
                             <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.companyname}</td>
                             <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.position}</td>
                             <td className={`px-4 py-4 border text-center ${style.headers}`}>{application.location}</td>
-                            <td className={`px-4 py-4 border text-center font-bold ${style.headers} ${application.status ==='rejected'?'text-red-600':application.status==='not seen'?'text-blue-600':application.status === 'approved'?'text-green-500':''}`}>{application.status}</td>
+                            <td className={`px-4 py-4 border text-center font-bold ${style.headers} ${application.status ==='reject'?'text-red-600':application.status==='pending'?'text-blue-600':application.status === 'approve'?'text-green-500':''}`}>{application.status === 'approve'?'approved':application.status === 'reject'?'rejected':application.status}</td>
                             <td className={`px-4 py-4 border text-center ${style.headers}`}>
                                 <button
                                     className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

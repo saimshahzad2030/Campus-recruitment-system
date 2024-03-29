@@ -1,34 +1,37 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import style from './StudentDetails.module.css'
+import { allStudents, hireStudent } from '@/utils/student'
+import Modal from '../Modal/Modal'
 const StudentDetails = () => {
-
-    const [students, setStudents] = useState([
-        { id: 1, firstname: 'John', lastname: 'Doe', obt: '90', faculty: 'Computer Science', tech: 'React', exp: '2 years' },
-        { id: 2, firstname: 'Jane', lastname: 'Smith', obt: '85', faculty: 'Electrical Engineering', tech: 'Python', exp: '1 year' },
-        { id: 3, firstname: 'Alice', lastname: 'Johnson', obt: '95', faculty: 'Mechanical Engineering', tech: 'JavaScript', exp: '3 years' },
-        { id: 4, firstname: 'Bob', lastname: 'Williams', obt: '75', faculty: 'Civil Engineering', tech: 'Angular', exp: '1.5 years' },
-        { id: 5, firstname: 'Emma', lastname: 'Brown', obt: '80', faculty: 'Chemical Engineering', tech: 'Vue.js', exp: '2.5 years' }
-    ]);
-    const [id,setId] = useState(0)
-    const handleHireButton = (id) => {
+    const [loading,setLoading] = useState(false)
+    const [students, setStudents] = useState([]);
+    const [student,setStudent] = useState({})
+    const [id,setId] = useState({})
+    const handleHireButton = (student) => {
         setShowAlert(true)
-        setId(id)
+        setStudent(student)
+        setId(student._id)
     };
     const [showAlert, setShowAlert] = useState(false);
     
     const handleConfirm = () => {
-        
-        setStudents(students.filter(app => app.id !== id));
+        console.log(student.email,student.studentId,student.position)
+        hireStudent(setLoading,student.email,student.studentId,student.position)
+        setStudents(students.filter(app => app._id !== id));
         setShowAlert(false);
     };
 
     const handleCancel = () => {
         setShowAlert(false);
     };
+    useEffect(()=>{
+        allStudents(setLoading,setStudents)
+    },[])
   return (
     <>
+    <Modal loading={loading}/>
     {showAlert && (
                 <div className={`absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ${style.main}`}>
                     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity"></div>
@@ -52,33 +55,33 @@ const StudentDetails = () => {
                 </div>
             )}
 
-{students &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{students.length===0?'No Students to show':'All Students'}</h1>
+{students && !loading &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{students.length===0?'No Students to show':'All Students'}</h1>
 }
- {students && students.length>0 &&
+ {students && !loading && students.length>0 &&
  <div className={`overflow-x-auto ${style.main}`}>
  <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
      <thead>
          <tr>
-              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Id</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Id</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>name</th>
              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>obtained marks</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Faculty</th>
              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Tech</th>
-             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Experience</th>
+             <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>faculty</th>
              <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl ${style.headers}`}>Hire</th>
          </tr>
      </thead>
      <tbody>
          {students.map(student => (
              <tr key={student.id}>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.id}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.obt}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.studentId}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.firstname} {student.lastname}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.obtainedmarks}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.position}</td>
                  <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.faculty}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.tech}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{student.exp}</td>
                  <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
                      <button
                          className="text-lg bg-green-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleHireButton(student.id)}
+                         onClick={() => handleHireButton(student)}
                      >
                          Hire
                      </button>

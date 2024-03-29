@@ -1,18 +1,12 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './Jobs.module.css'
+import Modal from '../Modal/Modal';
+import { allCompaniesDetails, deleteCompanyDetails } from '@/utils/admin-utils';
 const Jobs = () => {
-    const [jobs,setJobs] = useState([
-        {id:1, name: 'Company A',type:'full time', role: 'Software Engineer', message: 'We are currently seeking talented Software Engineers to join our team. Apply now!' ,exp:'1-2 yearss'},
-        {id:2, name: 'Company B',type:'full time', role: 'Data Scientist', message: 'Join our innovative team as a Data Scientist and work on cutting-edge projects.' ,exp:'1-2 yearss'},
-        {id:3, name: 'Company C',type:'full time', role: 'Web Developer', message: 'Are you passionate about web development? Join us as a Web Developer and help us build amazing websites.' ,exp:'1-2 yearss'},
-        {id:4, name: 'Company D',type:'full time', role: 'UI/UX Designer', message: 'Calling all creative UI/UX Designers! Join our team and contribute to creating beautiful user experiences.' ,exp:'1-2 yearss'},
-        {id:5, name: 'Company E',type:'full time', role: 'Network Engineer', message: 'Join our team of Network Engineers and work on building and maintaining robust networks.' ,exp:'1-2 yearss'},
-        {id:6, name: 'Company F',type:'full time', role: 'Project Manager', message: 'We are looking for experienced Project Managers to lead our team and deliver successful projects.' ,exp:'1-2 yearss'},
-        {id:7, name: 'Company G',type:'full time', role: 'Business Analyst', message: 'Join us as a Business Analyst and help us analyze data and make informed business decisions.' ,exp:'1-2 yearss'},
-        {id:8, name: 'Company H',type:'full time', role: 'Quality Assurance', message: 'We are hiring Quality Assurance professionals to ensure the quality and reliability of our products.' ,exp:'1-2 yearss'},
-       ]);
+    const [jobs,setJobs] = useState([]);
     const [id,setId] = useState(0)
+    const [loading,setLoading] = useState(false)
     const handleDeleteButton = (id) => {
         setShowAlert(true)
         setId(id)
@@ -20,16 +14,20 @@ const Jobs = () => {
     const [showAlert, setShowAlert] = useState(false);
     
     const handleConfirm = () => {
-        
-        setJobs(jobs.filter(job => job.id !== id));
+        deleteCompanyDetails(setLoading,id)
+        setJobs(jobs.filter(job => job._id !== id));
         setShowAlert(false);
     };
 
     const handleCancel = () => {
         setShowAlert(false);
     };
+    useEffect(()=>{
+        allCompaniesDetails(setLoading,setJobs)
+    },[])
   return (
     <>
+    <Modal loading={loading} />
     {showAlert && (
                 <div className={`absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ${style.main}`}>
                     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity"></div>
@@ -70,14 +68,14 @@ const Jobs = () => {
      <tbody>
          {jobs.map(job => (
              <tr key={job.id}>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.name}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.type}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.role}</td>
-                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.exp}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.companyname}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.availability}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.position}</td>
+                 <td className={`px-4 py-4 border text-center ${style.headers}`}>{job.experience}</td>
                  <td className={`px-4 py-4 border flex flex-row items-center justify-evenly ${style.headers}`}>
                      <button
                          className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleDeleteButton(job.id)}
+                         onClick={() => handleDeleteButton(job._id)}
                      >
                          Delete
                      </button>

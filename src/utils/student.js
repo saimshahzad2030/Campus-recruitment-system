@@ -5,7 +5,7 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
     setLoading(true)
    const token = Cookies.get('token')
     try {
-      const response = await axios.get('http://localhost:4000/api/student', {
+      const response = await axios.get('https://crs-backend.vercel.app/api/student', {
         headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -16,7 +16,7 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
         console.log(response.data.data)
         setData(response.data.data)
         
-          setFormSubmitted(true)
+        setFormSubmitted(true)
         
       }
     } catch (error) {
@@ -29,7 +29,7 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
     setLoading(true)
    const token = Cookies.get('token')
     try {
-      const response = await axios.get('http://localhost:4000/api/student', {
+      const response = await axios.get('https://crs-backend.vercel.app/api/student', {
         headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -50,7 +50,7 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
     setLoading(true)
    const token = Cookies.get('token')
     try {
-      const response = await axios.post('http://localhost:4000/api/student',
+      const response = await axios.post('https://crs-backend.vercel.app/api/student',
       {
         firstname,
  lastname,
@@ -83,7 +83,7 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
     setLoading(true)
    const token = Cookies.get('token')
     try {
-      const response = await axios.patch('http://localhost:4000/api/student',
+      const response = await axios.patch('https://crs-backend.vercel.app/api/student',
       {
         firstname,
  lastname,
@@ -105,6 +105,55 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
         console.log(response.data)
           setFormSubmitted(true)
         
+      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error.response)
+    }
+  }
+
+
+  
+  export const allStudents =  async (setLoading,setStudents) => {
+    setLoading(true)
+   const token = Cookies.get('token')
+    try {
+      const response = await axios.get('https://crs-backend.vercel.app/api/unemployed-students', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+          },
+      });
+  
+      if (response.status === 200) {
+        setLoading(false)
+     console.log(response.data)
+     setStudents(response.data.data)
+      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error.response)
+    }
+  }
+
+
+  
+  export const hireStudent =  async (setLoading,email,studentId,position) => {
+    const payLoad = {email,
+      studentId,
+    position}
+    console.log(payLoad)
+    setLoading(true)
+   const token = Cookies.get('token')
+    try {
+      const response = await axios.post('https://crs-backend.vercel.app/api/hiring',payLoad ,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+          },
+      });
+  
+      if (response.status === 200) {
+        setLoading(false)
+     console.log(response.data)
       }
     } catch (error) {
       setLoading(false)

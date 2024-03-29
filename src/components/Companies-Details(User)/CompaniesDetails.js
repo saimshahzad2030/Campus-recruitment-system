@@ -5,37 +5,38 @@ import { studentDetails2 } from '@/utils/student';
 import Cookies from 'js-cookie';
 import { addApplication } from '@/utils/applications';
 import Modal from '../Modal/Modal';
+import { allJobsPosted } from '@/utils/jobs';
+
 const CompaniesDetails = () => {
     const router = useRouter();
 
-    const [loading, setLoading] = useState(false)
+    const [messageApi, contextHolder] = message.useMessage();
+    const info = (message) => {
+      messageApi.info(message);
+    };
+    
 
-    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [dataExist,setDataExist] = useState(null)
     const [companyclicked, setcompanyClicked] = useState(false)
     const [selectedCompany, setSelectedCompany] = useState({})
-    const [applicationSubmitted, setApplicationSubmitted] = useState(false)
-    const companies = [
-        { name: 'Company A', type: 'full time', role: 'Software Engineer', message: 'We are currently seeking talented Software Engineers to join our team. Apply now!', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-        { name: 'Company B', type: 'full time', role: 'Data Scientist', message: 'Join our innovative team as a Data Scientist and work on cutting-edge projects.', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-        { name: 'Company C', type: 'full time', role: 'Web Developer', message: 'Are you passionate about web development? Join us as a Web Developer and help us build amazing websites.', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-        { name: 'Company D', type: 'full time', role: 'UI/UX Designer', message: 'Calling all creative UI/UX Designers! Join our team and contribute to creating beautiful user experiences.', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-        { name: 'Company E', type: 'full time', role: 'Network Engineer', message: 'Join our team of Network Engineers and work on building and maintaining robust networks.', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-        { name: 'Company F', type: 'full time', role: 'Project Manager', message: 'We are looking for experienced Project Managers to lead our team and deliver successful projects.', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-        { name: 'Company G', type: 'full time', role: 'Business Analyst', message: 'Join us as a Business Analyst and help us analyze data and make informed business decisions.', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-        { name: 'Company H', type: 'full time', role: 'Quality Assurance', message: 'We are hiring Quality Assurance professionals to ensure the quality and reliability of our products.', exp: '1-2 yearss', location: 'Johar Town, Karachi' },
-    ];
+    const [companies,setCompanies] = useState([])
     const roleDetails = { name: 'Company A', message: 'Calling all creative UI/UX Designers! Join our team and contribute to creating beautiful user experiences.', role: 'UI/Ux Designer', experience: '1-2 years', location: 'Johar Town, Karachi', type: 'full time' }
     useEffect(() => {
         studentDetails2(setLoading)
-
+        allJobsPosted(setLoading,setCompanies)
     }, [])
 
     useEffect(() => {
+        setDataExist(Cookies.get('data') !== undefined && JSON.parse(Cookies.get('data')))
         console.log(Cookies.get('data') !== undefined && JSON.parse(Cookies.get('data')))
 
     }, [loading])
+
+
     return (
         <>
+        {contextHolder}
         <Modal loading={loading}/>
         <div className={`flex flex-col items-center ${style.main}`}>
             <h1 className={`text-center text-3xl sm:text-5xl font-bold my-12 ${style.text}`}
@@ -50,15 +51,21 @@ const CompaniesDetails = () => {
             >
                 {companies.map((company, index) => (
                     <div onClick={() => {
-                        setSelectedCompany(company); setcompanyClicked(true);
+                        if(dataExist === false){
+                            alert('You must fill your details in order to apply for some positions')
+                        }
+                        else{
+                        setSelectedCompany(company); 
+                        setcompanyClicked(true);
+                        }
                     }}
                         key={index}
                         className={`bg-gray-700 text-gray-50 sm:bg-gray-50 sm:text-gray-700 p-4 rounded-lg cursor-pointer transition-all hover:text-gray-50 hover:bg-gray-700 duration-300 ease-in-out hover:scale-105`}
                         style={{ minHeight: '100px' }}
                     >
-                        <h2 className={`font-bold text-2xl  ${style.text}`}>{company.name}</h2>
-                        <p className={`mt-2 text-lg  ${style.text}`}>Role: {company.role}</p>
-                        <p className={`mt-1 text-sm  ${style.text}`}>{company.message}</p>
+                        <h2 className={`font-bold text-2xl  ${style.text}`}>{company.companyname}</h2>
+                        <p className={`mt-2 text-lg  ${style.text}`}>Role: {company.position}</p>
+                        <p className={`mt-1 text-sm  ${style.text}`}>{company.companymessage}</p>
                     </div>
                 ))}
             </div>
@@ -76,13 +83,13 @@ const CompaniesDetails = () => {
 
                 </div>
                 <div className={` py-8 w-full flex flex-col items-center`}>
-                    <h1 className={`text-5xl font-bold mb-12 text-center w-full text-gray-700 ${style.heading}`}>{selectedCompany.name}</h1>
-                    <h1 className={`text-2xl w-10/12 px-2 sm:w-5/12 mb-12 text-center w-full text-gray-700 ${style.heading}`}>{`"${selectedCompany.message}"`}</h1>
+                    <h1 className={`text-5xl font-bold mb-12 text-center w-full text-gray-700 ${style.heading}`}>{selectedCompany.companyname}</h1>
+                    <h1 className={`text-2xl w-10/12 px-2 sm:w-5/12 mb-12 text-center w-full text-gray-700 ${style.heading}`}>{`"${selectedCompany.companymessage}"`}</h1>
                     <div className={`grid grid-cols-1 sm:grid-cols-1  w-8/12`}>
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-700 ${style.subHeading}`}>Role</h1>
                             <div className={`flex flex-col align-start bg-gray-700 my-4 pl-4`}>
-                                <p className={`py-4 text-md text-white ${style.subHeadingText}`}>we are looking for the postion of {selectedCompany.role}</p>
+                                <p className={`py-4 text-md text-white ${style.subHeadingText}`}>we are looking for the postion of {selectedCompany.position}</p>
                             </div>
                         </div>
                         <div className={`flex flex-col align-start  m-4`}>
@@ -101,7 +108,7 @@ const CompaniesDetails = () => {
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-700 ${style.subHeading}`}>Type of Employment</h1>
                             <div className={`flex flex-col align-start bg-gray-700 my-4 pl-4`}>
-                                <p className={`py-4 text-md text-white ${style.subHeadingText}`}>We are tending to provide {selectedCompany.type}</p>
+                                <p className={`py-4 text-md text-white ${style.subHeadingText}`}>We are tending to provide {selectedCompany.availability}</p>
                             </div>
                         </div>
                     </div>
@@ -111,7 +118,7 @@ const CompaniesDetails = () => {
 
                     className="text-lg bg-gray-700 hover:bg-gray-50 hover:border-solid hover:border-2 hover:border-gray-700 hover:text-gray-700 text-gray-50 font-bold mb-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     onClick={() => {
-                        addApplication(setLoading,selectedCompany.name,selectedCompany.location,selectedCompany.role,setcompanyClicked)
+                        addApplication(setLoading,selectedCompany.companyname,selectedCompany.location,selectedCompany.position,setcompanyClicked)
                     }}
 
                 >

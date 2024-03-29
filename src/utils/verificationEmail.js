@@ -4,7 +4,7 @@ export const sendVerificationEmail =  async (email,setLoading,setEmailEntered) =
     setLoading(true)
   
     try {
-      const response = await axios.post('http://localhost:4000/api/verificationemail', {
+      const response = await axios.post('https://crs-backend.vercel.app/api/verificationemail', {
         email: email,
       });
   

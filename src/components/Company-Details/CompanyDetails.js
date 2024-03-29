@@ -2,25 +2,31 @@
 import React, { useState } from 'react';
 import style from './CompanyDetails.module.css';
 import { useSearchParams,useParams } from 'next/navigation';
+import { addJob, updateJob } from '@/utils/jobs';
+import Modal from '../Modal/Modal';
 
 const SuspenseFunction = () => {
     const params = useSearchParams();
-    const params2 = useParams();
-    console.log(params2)
-    const [companyName, setCompanyName] = useState('');
-    const [role, setRole] = useState(params.get('role') === undefined ? '' : params.get('role'));
+    const [job, setJob] = useState(params.get('position') === undefined ? '' : params.get('position'));
     const [experience, setExperience] = useState(params.get('experience') === undefined ? '' : params.get('experience'));
     const [location, setLocation] = useState(params.get('location') === undefined ? '' : params.get('location'));
-    const [typeOfEmployment, setTypeOfEmployment] = useState(params.get('type') === undefined ? '' : params.get('type'));
-    const [message, setMessage] = useState(params.get('message') === undefined ? '' : params.get('message'));
-
+    const [typeOfEmployment, setTypeOfEmployment] = useState(params.get('availability') === undefined ? '' : params.get('availability'));
+    const [message, setMessage] = useState(params.get('companymessage') === undefined ? '' : params.get('companymessage'));
+    const [loading,setLoading] = useState(false)
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(params.get('_id')){
+            updateJob(setLoading,params.get('_id'),message,job,experience,location,typeOfEmployment)
+        }
+        else{
+            addJob(setLoading,message,job,experience,location,typeOfEmployment)
+        
+        }
     };
 
     return (
         <>
-       
+       <Modal loading={loading}/>
              <div className={`bg-gray-700 py-12 ${style.main}`}>
                     <h1 className={`text-4xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}>Job Info</h1>
     
@@ -33,32 +39,18 @@ const SuspenseFunction = () => {
     
     
                                 <div className='grid grid-cols-1 sm:grid-cols-2 w-full gap-12'>
+                                    
                                     <div className="mb-2">
-                                        <label htmlFor="companyname" className="block text-gray-400 text-sm font-bold mb-2">
-                                            Company name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="companyname"
-                                            value={companyName}
-                                            onChange={(e) => setcompanyName(e.target.value)}
-                                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            placeholder="Enter Company Name"
-    
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-2">
-                                        <label htmlFor="role" className="block text-gray-400 text-sm font-bold mb-2">
-                                            Role
+                                        <label htmlFor="job" className="block text-gray-400 text-sm font-bold mb-2">
+                                            Job
                                         </label>
                                         <input
                                             type="text"
                                             id="role"
-                                            value={role}
-                                            onChange={(e) => setRole(e.target.value)}
+                                            value={job}
+                                            onChange={(e) => setJob(e.target.value)}
                                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            placeholder="Enter Role name"
+                                            placeholder="Enter Job title"
     
                                             required
                                         />
@@ -76,7 +68,7 @@ const SuspenseFunction = () => {
     
                                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             placeholder="Enter required experience"
-                                            maxLength={2}
+                                           
                                             required
                                         />
                                     </div>

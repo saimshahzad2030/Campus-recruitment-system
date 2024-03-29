@@ -5,7 +5,7 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
     setLoading(true)
    
     try {
-      const response = await axios.post('http://localhost:4000/api/login', {
+      const response = await axios.post('https://crs-backend.vercel.app/api/login', {
         email,password
       });
   
@@ -29,7 +29,7 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
     setLoading(true)
   console.log(email,username,password,name)
     try {
-      const response = await axios.post('http://localhost:4000/api/signup', {
+      const response = await axios.post('https://crs-backend.vercel.app/api/signup', {
         email,
         username,
         name,

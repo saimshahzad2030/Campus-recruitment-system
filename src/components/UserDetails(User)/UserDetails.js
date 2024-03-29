@@ -36,7 +36,8 @@ const UserDetails = () => {
             console.log('second')
             addStudentDetails(setLoading,setFormSubmitted,firstname,lastname,studentId,age,faculty,obtainedMarks,domainOfInterest,availabilty,experience)
         }
-
+        studentDetails(setLoading,setFormSubmitted,setData)
+        
     };
     useEffect(()=>{
         studentDetails(setLoading,setFormSubmitted,setData)
@@ -54,7 +55,7 @@ const UserDetails = () => {
                 setStudentId(data.studentId || '');
                 setExperience(data.experience || '');
             }
-        }, [data]);
+        }, [loading]);
     return (
 
         <>
@@ -253,7 +254,7 @@ const UserDetails = () => {
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Age</h1>
                             <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
-                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am {data.age!==undefined?data.age:age} years old.</p>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am {data && data.age!==undefined?data.age:age} years old.</p>
                             </div>
                         </div>
                         <div className={`flex flex-col align-start  m-4`}>
@@ -273,7 +274,7 @@ const UserDetails = () => {
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Work Stack</h1>
                             <div className={`flex flex-col align-start bg-gray-50 my-4 pl-4`}>
-                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am a passionate {data.position!==undefined?data.position:domainOfInterest}.</p>
+                                <p className={`py-4 text-md ${style.subHeadingText}`}>I am a passionate about my role of {data.position!==undefined?data.position:domainOfInterest}.</p>
                             </div>
                         </div>
                         <div className={`flex flex-col align-start  m-4`}>
