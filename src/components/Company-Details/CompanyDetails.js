@@ -1,11 +1,12 @@
 "use client"
 import React, { useState } from 'react';
 import style from './CompanyDetails.module.css';
-import { useSearchParams,useParams } from 'next/navigation';
+import { useSearchParams,useRouter } from 'next/navigation';
 import { addJob, updateJob } from '@/utils/jobs';
 import Modal from '../Modal/Modal';
 
 const SuspenseFunction = () => {
+    const router =  useRouter();
     const params = useSearchParams();
     const [job, setJob] = useState(params.get('position') === undefined ? '' : params.get('position'));
     const [experience, setExperience] = useState(params.get('experience') === undefined ? '' : params.get('experience'));
@@ -17,9 +18,11 @@ const SuspenseFunction = () => {
         e.preventDefault();
         if(params.get('_id')){
             updateJob(setLoading,params.get('_id'),message,job,experience,location,typeOfEmployment)
+            router.push('/company/jobs')
         }
         else{
             addJob(setLoading,message,job,experience,location,typeOfEmployment)
+            router.push('/company/jobs')
         
         }
     };
