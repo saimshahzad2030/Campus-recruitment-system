@@ -12,7 +12,6 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
       if (response.status === 200) {
         setLoading(false)
         setLoginSuccesfull(true)
-        console.log(response.data.role)
         Cookies.set('token',response.data.token)
         if (callback) {
             callback(response.data.role);
@@ -27,7 +26,6 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
 
   export const Signup =  async (email,username,name,password,role,setLoading,setSignupSuccesfull,callback) => {
     setLoading(true)
-  console.log(email,username,password,name)
     try {
       const response = await axios.post('https://crs-backend.vercel.app/api/signup', {
         email,
@@ -39,13 +37,15 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data.role)
         setSignupSuccesfull(true)
         Cookies.set('token',response.data.token)
 
         if (callback) {
             callback(response.data.role);
           }
+      }
+      else{
+      alert(response.data.message)
       }
     } catch (error) {
       setLoading(false)
@@ -74,9 +74,7 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
         }
         }
     } catch (error) {
-      console.log(error)
       setLoading(false)
-      
       
     }
   }

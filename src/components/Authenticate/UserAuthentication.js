@@ -8,9 +8,7 @@ const UserAuthentication = ({ children }) => {
   const [userAuthenticated, setUserAuthenticated] = useState(false)
   const pathname = usePathname()
   const [loading, setLoading] = useState(true);
-  console.log("UserAuthentication", userAuthenticated);
-  useEffect(() => {
-    console.log(pathname,'from Admin layout')
+ useEffect(() => {
     async function checkAuthentication() {
       try {
         const token = Cookies.get('token');
@@ -30,7 +28,6 @@ const UserAuthentication = ({ children }) => {
         && pathname !== '/admin/students'
         
         ) {
-          console.log('first condition executed')
           setLoading(false)
           setUserAuthenticated(false);
           return <Unauthorized />
@@ -43,8 +40,7 @@ const UserAuthentication = ({ children }) => {
 
         
         ) {
-          console.log('second condition executed')
-        
+         
           setLoading(false)
           setUserAuthenticated(false);
           return <Unauthorized />
@@ -60,23 +56,20 @@ const UserAuthentication = ({ children }) => {
 
         
         ) {
-          console.log('second condition executed')
-        
+         
           setLoading(false)
           setUserAuthenticated(false);
           return <Unauthorized />
 
         }
         else {
-          console.log('third condition executed')
-
+          
           setLoading(false)
           setUserAuthenticated(true);
           return <>{children}</>
 
         }
       } catch (error) {
-        console.log(error)
         setLoading(false)
         setUserAuthenticated(false)
         return <Unauthorized />

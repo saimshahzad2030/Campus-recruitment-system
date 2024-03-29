@@ -29,12 +29,10 @@ const UserDetails = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isUpdating){
-            console.log('first')
             updateStudentDetails(setLoading,setFormSubmitted,firstname,lastname,studentId,age,faculty,obtainedMarks,domainOfInterest,availabilty,experience)
         }
         else{
-            console.log('second')
-            addStudentDetails(setLoading,setFormSubmitted,firstname,lastname,studentId,age,faculty,obtainedMarks,domainOfInterest,availabilty,experience)
+           addStudentDetails(setLoading,setFormSubmitted,firstname,lastname,studentId,age,faculty,obtainedMarks,domainOfInterest,availabilty,experience)
         }
         studentDetails(setLoading,setFormSubmitted,setData)
         

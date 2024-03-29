@@ -17,7 +17,6 @@ const StudentDetails = () => {
     const [showAlert, setShowAlert] = useState(false);
     
     const handleConfirm = () => {
-        console.log(student.email,student.studentId,student.position)
         hireStudent(setLoading,student.email,student.studentId,student.position)
         setStudents(students.filter(app => app._id !== id));
         setShowAlert(false);

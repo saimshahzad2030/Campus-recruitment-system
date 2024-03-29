@@ -23,8 +23,7 @@ const CompaniesDetails = () => {
 
     useEffect(() => {
         setDataExist(Cookies.get('data') !== undefined && JSON.parse(Cookies.get('data')))
-        console.log(Cookies.get('data') !== undefined && JSON.parse(Cookies.get('data')))
-
+        
     }, [loading])
 
 

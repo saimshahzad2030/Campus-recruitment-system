@@ -23,7 +23,6 @@ const Login = () => {
   const [role,setRole] = useState(null)
   const router = useRouter()
   const handleSubmit = (e) => {
-    console.log(email, token, password, username)
     
     e.preventDefault();
     if (isLogin) {
@@ -40,8 +39,7 @@ const Login = () => {
           router.push('/company/home');
         }
       })
-      console.log('login:',role)
-
+     
     }
     else {
       if (!emailEntered) {
@@ -60,7 +58,6 @@ const Login = () => {
             router.push('/company/home');
           }
         })
-       console.log(role)
       }
 
     }
@@ -108,21 +105,7 @@ const Login = () => {
                 />
               </div>
             )}
-            {!isLogin && emailVerified && isChecked && (
-              <div className="mb-4">
-                <label htmlFor="companyname" className="block text-gray-400 text-sm font-bold mb-2">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  id="companyname"
-                  value={companyName}
-                  onChange={(e) => setCompanyname(e.target.value)}
-                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  required
-                />
-              </div>
-            )}
+            
             {isLogin ?
 
               <div className="mb-4">
@@ -164,7 +147,12 @@ const Login = () => {
                   id="token"
                   value={token}
                   placeholder='token'
-                  onChange={(e) => setToken(e.target.value)}
+                  onChange={(e) =>{
+                    const inputValue = e.target.value;
+                    const numericInput = inputValue.replace(/[^0-9]/g, '');
+                    setToken(numericInput)
+                  }}
+                  maxLength={6}
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   required
                 />
@@ -198,6 +186,21 @@ const Login = () => {
                 />
               </div>
             }
+            {!isLogin && emailVerified && isChecked && (
+              <div className="mb-4">
+                <label htmlFor="companyname" className="block text-gray-400 text-sm font-bold mb-2">
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  id="companyname"
+                  value={companyName}
+                  onChange={(e) => setCompanyname(e.target.value)}
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+            )}
             {!isLogin && emailVerified && (
               <div className="mb-4">
                 <label htmlFor="terms" className="flex items-center">

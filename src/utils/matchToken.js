@@ -11,12 +11,12 @@ export const matchToken =  async (email,token,setLoading,setemailVerified) => {
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
+        alert(response.data.message)
         setemailVerified(true)
   
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response.data)
+      alert(error.response.data.message)
     }
   }
