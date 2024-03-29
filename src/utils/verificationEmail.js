@@ -10,7 +10,6 @@ export const sendVerificationEmail =  async (email,setLoading,setEmailEntered) =
   
       if (response.status === 200) {
         setLoading(false)
-  console.log(response.data)
        setEmailEntered(true)
   
       }

@@ -37,7 +37,7 @@ const Footer = () => {
                         <img className={`bg-gray-700 h-8 w-8 2xl:h-8 2xl:w-8 xl:h-8 xl:w-8 lg:h-8 lg:w-8 sm:h-8 sm:w-8  sm:flex h-4 w-4 rounded-full cursor-pointer mr-3 2xl:mr-8 sm:mr-6  transition-transform transform hover:scale-105 ${style.icon5}`} src="/Assets/socials/instagram.png" alt="Facebook" />
                     </Link></div>
             </div>
-            <div className='  py-4 px-16 flex flex-col items-center justify-start bg-gray-700 '>
+            <div className='  py-4 px-4 sm:px-16 flex flex-col items-center justify-start bg-gray-700 '>
                 <h1 className={`text-3xl sm:text-2xl text-gray-50  font-bold ${style.heading}`}>Query</h1>
 
                 <input
@@ -45,7 +45,7 @@ const Footer = () => {
                     id="query"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="mt-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mt-4 appearance-none border rounded w-full py-2 px-3 sm:px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required
                 />
                 <button className=" mt-4 bg-gray-50 hover:bg-gray-200 text-gray-700 font-bold py-1 px-2 w-full rounded">

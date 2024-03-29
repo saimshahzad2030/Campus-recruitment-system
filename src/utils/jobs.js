@@ -15,12 +15,10 @@ export const companyJobs =  async ( setLoading,setJobs) => {
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
         setJobs(response.data.data)
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response) 
 
     }
   }
@@ -43,12 +41,10 @@ export const updateJob =  async ( setLoading,id,companymessage,position,experien
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
         
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response) 
 
     }
   }
@@ -71,12 +67,10 @@ export const updateJob =  async ( setLoading,id,companymessage,position,experien
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
         
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response) 
 
     }
   }
@@ -84,7 +78,6 @@ export const updateJob =  async ( setLoading,id,companymessage,position,experien
   export const deleteJob =  async ( setLoading,id) => {
     setLoading(true)
    const token = Cookies.get('token')
-   console.log(id)
     try {
       const response = await axios.delete(`https://crs-backend.vercel.app/api/company-jobs?id=${id}`,
       {
@@ -96,12 +89,10 @@ export const updateJob =  async ( setLoading,id,companymessage,position,experien
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
         
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response) 
 
     }
   }
@@ -122,12 +113,10 @@ export const updateJob =  async ( setLoading,id,companymessage,position,experien
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
         setCompanies(response.data.data)
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response) 
 
     }
   }

@@ -55,7 +55,7 @@ const ApplicationTable = () => {
                     </div>
                 </div>
             )}
-            {applications  && !loading &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.header}`}>{applications.length===0 ?'No Applications to show':'Your Applications'}</h1>
+            {applications  && !loading &&  <h1 className={`text-center font-bold text-3xl sm:text-5xl my-12 ${style.header}`}>{applications.length===0 ?'No Applications to show':'Your Applications'}</h1>
            }
             {applications && !loading && applications.length>0 &&
             <div className={`overflow-x-auto`}>

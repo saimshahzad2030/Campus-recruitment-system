@@ -25,14 +25,12 @@ availability:data.availability,
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data.data)
         setcompanyClicked(false)
         setData(response.data.data)
           setFormSubmitted(true)
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response)
       setcompanyClicked(false)
 
     }
@@ -54,12 +52,10 @@ export const userApplications =  async ( setLoading,setApplications) => {
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
         setApplications(response.data.data)
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response) 
 
     }
   }
@@ -83,11 +79,9 @@ export const cancelApplication =  async ( setLoading,id) => {
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data) 
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response) 
 
     }
   }
@@ -112,12 +106,10 @@ export const companyApplications =  async ( setLoading,setApplications) => {
 
     if (response.status === 200) {
       setLoading(false)
-      console.log(response.data)
       setApplications(response.data.data) 
     }
   } catch (error) {
     setLoading(false)
-    console.log(error.response) 
 
   }
 }
@@ -144,11 +136,9 @@ export const updateUserApplication =  async ( setLoading,id,status) => {
 
     if (response.status === 200) {
       setLoading(false)
-      console.log(response.data)
     }
   } catch (error) {
     setLoading(false)
-    console.log(error.response) 
 
   }
 }

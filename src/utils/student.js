@@ -13,7 +13,6 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data.data)
         setData(response.data.data)
         
         setFormSubmitted(true)
@@ -21,7 +20,6 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response)
     }
   }
 
@@ -42,7 +40,6 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response)
     }
   }
 
@@ -69,13 +66,11 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
           setFormSubmitted(true)
         
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response)
     }
   }
   
@@ -102,13 +97,11 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
   
       if (response.status === 200) {
         setLoading(false)
-        console.log(response.data)
           setFormSubmitted(true)
         
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response)
     }
   }
 
@@ -126,12 +119,10 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
   
       if (response.status === 200) {
         setLoading(false)
-     console.log(response.data)
      setStudents(response.data.data)
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response)
     }
   }
 
@@ -141,7 +132,6 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
     const payLoad = {email,
       studentId,
     position}
-    console.log(payLoad)
     setLoading(true)
    const token = Cookies.get('token')
     try {
@@ -153,10 +143,8 @@ export const studentDetails =  async (  setLoading,setFormSubmitted,setData ) =>
   
       if (response.status === 200) {
         setLoading(false)
-     console.log(response.data)
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.response)
     }
   }

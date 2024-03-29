@@ -222,7 +222,7 @@ const Login = () => {
               {isLogin ? 'Login' : !emailEntered ? 'Next' : emailEntered && !emailVerified ? 'VerifyEmail' : emailEntered && emailVerified && 'signin'}
             </button>
           </form>
-          <p className="mt-4">
+          <p className="mt-4 text-gray-50">
             {isLogin ? "Don't have an account?" : 'Already have an account?'}
             <button
               onClick={() => setIsLogin(!isLogin)}

@@ -37,7 +37,7 @@ const SuspenseFunction = () => {
     
     
                         <div className="flex-1  p-6 sm:px-16 w-full">
-                            <form onSubmit={handleSubmit} className="w-9/12 sm:w-full">
+                            <form onSubmit={handleSubmit} className="w-full sm:w-full">
                                 <h2 className="text-2xl font-bold mb-4  text-gray-50" >Fill your Details below</h2>
     
     
