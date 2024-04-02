@@ -8,7 +8,7 @@ const Footer = () => {
      <>
      <div className='h-1 bg-gray-50'></div>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full bg-gray-700 py-16'>
-            <div className=' py-4  flex flex-col items-center justify-start bg-gray-700 ml-4'>
+            <div className=' py-4 px-3  flex flex-col items-center justify-start bg-gray-700 sm:ml-4'>
                 <h1 className={`text-3xl sm:text-2xl  text-gray-50 font-bold ${style.heading}`}>About</h1>
                 <p className={`text-xl sm:text-lg text-gray-300 mt-4 text-center ${style.text}`}> Our motive is to provide students and companies a transparent system so that companies can find their employees based on merit </p>
             </div>

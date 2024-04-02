@@ -96,7 +96,7 @@ const ApplicationTable = () => {
                      >
                          Reject
                      </button>
-                            </td>
+                            </td>              
                         </tr>
                     ))}
                 </tbody>
