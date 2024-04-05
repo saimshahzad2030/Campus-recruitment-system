@@ -27,6 +27,7 @@ export const addApplication = createAsyncThunk(
   'applications/addApplications',
   async ( jobId,{ rejectWithValue }) => {
     try {
+      console.log('object')
     
        
       const response = await axios.post('https://crs-backend.vercel.app/api/application',

@@ -120,12 +120,18 @@ const CompaniesDetails = () => {
 
                 </div>
                 <button
-     className={`text-lg bg-gray-600 ${!alreadyApplied?'hover:bg-gray-800':''} text-gray-50 font-bold mb-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline
-     ${alreadyApplied ? 'opacity-50 cursor-not-allowed' : ''}`}
-    disabled={alreadyApplied}
->
-  {alreadyApplied ? 'Already Applied' : 'Apply Now'}
-</button>
+
+className={`text-lg bg-gray-600 ${!alreadyApplied?'hover:bg-gray-800':''} text-gray-50 font-bold mb-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline
+${alreadyApplied ? 'opacity-50 cursor-not-allowed' : ''}`}
+disabled={alreadyApplied}
+                    onClick={() => {
+                        dispatch(addApplication(selectedCompany._id)).unwind
+                        setcompanyClicked(false)
+                        }}
+
+                >
+                   {alreadyApplied?'Already Applied':'Apply'}
+                </button>
             </div>
         </div>
         </>
