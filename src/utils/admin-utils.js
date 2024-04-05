@@ -11,7 +11,7 @@ export const allCounts =  async (setLoading,setData) => {
  
   try {
     console.log(token)
-    const response = await axios.get('http://localhost:4000/api/count',
+    const response = await axios.get('https://crs-backend.vercel.app/api/count',
     {
       headers: {
           Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const allCompanies =  async (setLoading,setCompanies) => {
    const token = Cookies.get('token')
    
     try {
-      const response = await axios.get('http://localhost:4000/api/company',
+      const response = await axios.get('https://crs-backend.vercel.app/api/company',
   
       {
         headers: {
@@ -64,7 +64,7 @@ export const deleteCompany =  async (setLoading,id,email) => {
     setLoading(true)
    const token = Cookies.get('token')
     try {
-      const response = await axios.delete(`http://localhost:4000/api/company?id=${id}&email=${email}`,
+      const response = await axios.delete(`https://crs-backend.vercel.app/api/company?id=${id}&email=${email}`,
   
       {
         headers: {
@@ -90,7 +90,7 @@ export const allStudents =  async (setLoading,setStudents) => {
    const token = Cookies.get('token')
    
     try {
-      const response = await axios.get('http://localhost:4000/api/all-students',
+      const response = await axios.get('https://crs-backend.vercel.app/api/all-students',
   
       {
         headers: {
@@ -143,7 +143,7 @@ export const allStudentsDetails =  async (setLoading,setStudents) => {
    const token = Cookies.get('token')
    
     try {
-      const response = await axios.get('http://localhost:4000/api/all-student-details',
+      const response = await axios.get('https://crs-backend.vercel.app/api/all-student-details',
   
       {
         headers: {
@@ -169,7 +169,7 @@ export const deleteStudentDetails =  async (setLoading,id) => {
     setLoading(true)
    const token = Cookies.get('token')
     try {
-      const response = await axios.delete(`http://localhost:4000/api/all-student-details?id=${id}`,
+      const response = await axios.delete(`https://crs-backend.vercel.app/api/all-student-details?id=${id}`,
   
       {
         headers: {
@@ -196,7 +196,7 @@ export const deleteStudentDetails =  async (setLoading,id) => {
    const token = Cookies.get('token')
    
     try {
-      const response = await axios.get('http://localhost:4000/api/all-jobs-admin',
+      const response = await axios.get('https://crs-backend.vercel.app/api/all-jobs-admin',
   
       {
         headers: {

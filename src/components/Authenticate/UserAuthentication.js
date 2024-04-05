@@ -21,7 +21,7 @@ const UserAuthentication = ({ children }) => {
       // try {
       //   const token = Cookies.get('token');
       //   const response = await axios.get(
-      //     'http://localhost:4000/api/authenticate',
+      //     'https://crs-backend.vercel.app/api/authenticate',
       //     {
       //       headers: {
       //         Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ const UserAuthentication = ({ children }) => {
       try {
         const token = Cookies.get('token');
         const response = await axios.get(
-          'http://localhost:4000/api/authenticate',
+          'https://crs-backend.vercel.app/api/authenticate',
           {
             headers: {
               Authorization: `Bearer ${token}`,
