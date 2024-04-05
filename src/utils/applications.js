@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-export const addApplication =  async ( setLoading,companyName,location,position,setcompanyClicked) => {
+export const addApplication =  async ( setLoading, setcompanyClicked,jobId) => {
     setLoading(true)
    const token = Cookies.get('token')
    const data = JSON.parse(Cookies.get('data'))
@@ -8,13 +8,7 @@ export const addApplication =  async ( setLoading,companyName,location,position,
     try {
       const response = await axios.post('https://crs-backend.vercel.app/api/application',
       {
-        
-  studentId:data.studentId,
- companyname:companyName,
-position:position,
-experience:data.experience,
-location:location,
-availability:data.availability,
+   jobId:"660f5d072d15bb074117f2d6"
       },
       
       {
@@ -26,7 +20,6 @@ availability:data.availability,
       if (response.status === 200) {
         setLoading(false)
         setcompanyClicked(false)
-        setData(response.data.data)
           setFormSubmitted(true)
       }
     } catch (error) {

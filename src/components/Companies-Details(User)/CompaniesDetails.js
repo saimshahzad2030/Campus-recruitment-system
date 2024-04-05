@@ -110,7 +110,8 @@ const CompaniesDetails = () => {
 
                     className="text-lg bg-gray-700 hover:bg-gray-50 hover:border-solid hover:border-2 hover:border-gray-700 hover:text-gray-700 text-gray-50 font-bold mb-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     onClick={() => {
-                        addApplication(setLoading,selectedCompany.companyname,selectedCompany.location,selectedCompany.position,setcompanyClicked)
+                        console.log(selectedCompany._id)
+                        addApplication(setLoading,setcompanyClicked,selectedCompany._id)
                     }}
 
                 >
