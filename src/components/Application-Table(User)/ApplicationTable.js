@@ -2,14 +2,17 @@
 import { useEffect, useState } from 'react'
 import React from 'react'
 import style from './ApplicationTable.module.css'
-import { cancelApplication, userApplications } from '@/utils/applications'
-import { Modak } from 'next/font/google'
+// import { cancelApplication, userApplications } from '@/utils/applications'
 import Modal from '../Modal/Modal'
+import { useDispatch,useSelector } from 'react-redux'
+import { cancelApplication } from '@/redux/reducers/application-slice'
+
 const ApplicationTable = () => {
-    const [loading, setLoading] = useState(false)
-  
-    
-    const [applications, setApplications] = useState([]);
+    const [loadingScreen, setLoadingScreen] = useState(false)
+    const dispatch = useDispatch();
+    const { applications, error,loading } = useSelector((state) => state.applications);
+   
+    // const [applications, setApplications] = useState([]);
     const [id,setId] = useState(0)
     const handleCancelApplication = (id) => {
         setShowAlert(true)
@@ -18,18 +21,13 @@ const ApplicationTable = () => {
     const [showAlert, setShowAlert] = useState(false);
     
     const handleConfirm = () => {
-        cancelApplication(setLoading,id)
-        setApplications(applications.filter(app => app._id !== id));
+        dispatch(cancelApplication(id))
         setShowAlert(false);
     };
 
     const handleCancel = () => {
         setShowAlert(false);
     };
-
-    useEffect(()=>{
-        userApplications(setLoading,setApplications)
-    },[])
     return (
         <>
         <Modal loading={loading}/>
@@ -79,7 +77,11 @@ const ApplicationTable = () => {
                             <td className={`px-4 py-4 border text-center `}>
                                 <button
                                     className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                    onClick={() => handleCancelApplication(application._id)}
+                                    onClick={() => {handleCancelApplication(application._id);
+                                                    // dispatch(removeApplication(application._id))
+                                    }
+
+                                    }
                                 >
                                     Cancel
                                 </button>

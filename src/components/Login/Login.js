@@ -82,14 +82,14 @@ const Login = () => {
 
     <div className='bg-gray-700 py-12'>
       <Modal loading={loading}/>
-      <h1 className={`text-4xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}>Campus Recruitment Sytem</h1>
-      <div className="grid sm:grid-cols-1 lg:sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 2xl:md:grid-cols-2">
+      <h1 className={`text-5xl lg:text-6xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}>Campus Recruitment Sytem</h1>
+      <div className="grid sm:grid-cols-1 lg:sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 2xl:md:grid-cols-2 ">
         <div className="flex-1 bg-gray-100 p-10 h-auto flex flex-row items-center">
           <img src="/Assets/form/form-image.jpg" alt="Your Image" className="w-full h-auto" />
         </div>
-        <div className="flex-1  p-6 sm:px-16">
-          <form onSubmit={handleSubmit} className="w-full max-w-sm">
-            <h2 className="text-2xl font-bold mb-4 text-gray-50">{isLogin ? 'Login' : 'Sign Up'}</h2>
+        <div className="flex-1  p-6 sm:px-16 w-full">
+          <form onSubmit={handleSubmit} className="w-full  lg:w-8/12  ">
+            <h2 className="text-2xl lg:text-5xl font-bold mb-4 text-gray-50">{isLogin ? 'Login' : 'Sign Up'}</h2>
             {!isLogin && emailVerified && (
               <div className="mb-4">
                 <label htmlFor="username" className="block text-gray-400 text-sm font-bold mb-2">
@@ -106,6 +106,8 @@ const Login = () => {
               </div>
             )}
             
+
+
             {isLogin ?
 
               <div className="mb-4">
@@ -137,6 +139,9 @@ const Login = () => {
                 />
               </div>
             }
+
+
+
             {!isLogin && emailEntered && !emailVerified && (
               <div className="mb-4">
                 <label htmlFor="username" className="block text-gray-400 text-sm font-bold mb-2">
@@ -158,6 +163,9 @@ const Login = () => {
                 />
               </div>
             )}
+
+
+
             {isLogin ? <div className="mb-6">
               <label htmlFor="password" className="block text-gray-400 text-sm font-bold mb-2">
                 Password
@@ -186,6 +194,9 @@ const Login = () => {
                 />
               </div>
             }
+
+
+
             {!isLogin && emailVerified && isChecked && (
               <div className="mb-4">
                 <label htmlFor="companyname" className="block text-gray-400 text-sm font-bold mb-2">
@@ -201,6 +212,9 @@ const Login = () => {
                 />
               </div>
             )}
+
+
+
             {!isLogin && emailVerified && (
               <div className="mb-4">
                 <label htmlFor="terms" className="flex items-center">
@@ -215,12 +229,18 @@ const Login = () => {
                 </label>
               </div>
             )}
+
+
+
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 lg:text-2xl rounded focus:outline-none focus:shadow-outline"
             >
               {isLogin ? 'Login' : !emailEntered ? 'Next' : emailEntered && !emailVerified ? 'VerifyEmail' : emailEntered && emailVerified && 'signin'}
             </button>
+
+
+
           </form>
           <p className="mt-4 text-gray-50">
             {isLogin ? "Don't have an account?" : 'Already have an account?'}

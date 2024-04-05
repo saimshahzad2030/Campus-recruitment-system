@@ -4,8 +4,8 @@ import Link from 'next/link'
 const CompanySection = () => {
     return (
         <>
-            <h1 className={`text-center font-bold text-4xl mt-16 ${style.heading}`}>Get Started</h1>
-            <div className={`grid grid-cols-1 sm:grid-cols-2 ${style.main}`}>
+            <h1 className={`text-center font-bold text-4xl xl:text-6xl mt-16 ${style.heading}`}>Get Started</h1>
+            <div className={`grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 ${style.main}`}>
                 <div className={`m-8 py-12 bg-gray-700 flex justify-center items-center rounded-lg lg:m-8 sm:m-12 `}>
                     <div className={`flex flex-col items-center justify-center`}>
                         <h2 className={`text-white text-center font-bold text-3xl ${style.divHeading}`}>Company requirement</h2>

@@ -48,7 +48,7 @@ const ApplicationTable = () => {
                         <div className="flex justify-center">
                             <button
                                 onClick={handleConfirm}
-                                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-4"
+                                className={`${type === 'approve'?'bg-green-600': 'bg-red-600'} hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-4`}
                             >
                                 Confirm
                             </button>
@@ -69,7 +69,7 @@ const ApplicationTable = () => {
             <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
                 <thead>
                     <tr>
-                        <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Student Id</th>
+                        <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Student email</th>
                         <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Job</th>
                         <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Experience</th>
                         <th className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}>Availability</th>
@@ -79,7 +79,7 @@ const ApplicationTable = () => {
                 <tbody>
                     {applications.map(application => (
                         <tr key={application.id}>
-                            <td className={`px-4 py-4 border text-center `}>{application.studentId}</td>
+                            <td className={`px-4 py-4 border text-center `}>{application.appliedBy}</td>
                             <td className={`px-4 py-4 border text-center `}>{application.position}</td>
                             <td className={`px-4 py-4 border text-center `}>{application.experience}</td>
                             <td className={`px-4 py-4 border text-center `}>{application.availability}</td>

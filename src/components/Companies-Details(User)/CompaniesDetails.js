@@ -3,20 +3,22 @@ import style from './CompaniesDetails.module.css'
 import { useRouter } from 'next/navigation';
 import { studentDetails2 } from '@/utils/student';
 import Cookies from 'js-cookie';
-import { addApplication } from '@/utils/applications';
+// import { addApplication } from '@/utils/applications';
+import { addApplication } from '@/redux/reducers/application-slice';
 import Modal from '../Modal/Modal';
 import { allJobsPosted } from '@/utils/jobs';
-
+import { useDispatch, useSelector } from 'react-redux';
 const CompaniesDetails = () => {
     const router = useRouter();
-
+    const dispatch = useDispatch();
+    const { applications, error } = useSelector((state) => state.applications);
     const [loading, setLoading] = useState(false)
     const [dataExist,setDataExist] = useState(null)
     const [companyclicked, setcompanyClicked] = useState(false)
     const [selectedCompany, setSelectedCompany] = useState({})
     const [companies,setCompanies] = useState([])
-    const roleDetails = { name: 'Company A', message: 'Calling all creative UI/UX Designers! Join our team and contribute to creating beautiful user experiences.', role: 'UI/Ux Designer', experience: '1-2 years', location: 'Johar Town, Karachi', type: 'full time' }
-    useEffect(() => {
+    const [alreadyApplied,setAlreadyApplied] = useState(false)
+   useEffect(() => {
         studentDetails2(setLoading)
         allJobsPosted(setLoading,setCompanies)
     }, [])
@@ -26,8 +28,11 @@ const CompaniesDetails = () => {
         
     }, [loading])
 
+    console.log('applications:',applications)
 
     return (
+        <>
+        {applications && 
         <>
         <Modal loading={loading}/>
         <div className={`flex flex-col items-center ${style.main}`}>
@@ -47,11 +52,19 @@ const CompaniesDetails = () => {
                             alert('You must fill your details in order to apply for some positions')
                         }
                         else{
+                           
                         setSelectedCompany(company); 
                         setcompanyClicked(true);
+                      const myFilter = applications.filter(app=>app.jobId === company._id);
+                        if (myFilter.length>0){
+                            setAlreadyApplied(true)
+                        }
+                        else{
+                            setAlreadyApplied(false)
+                        }
                         }
                     }}
-                        key={index}
+                        key={company._id}
                         className={`bg-gray-700 text-gray-50 sm:bg-gray-50 sm:text-gray-700 p-4 rounded-lg cursor-pointer transition-all hover:text-gray-50 hover:bg-gray-700 duration-300 ease-in-out hover:scale-105`}
                         style={{ minHeight: '100px' }}
                     >
@@ -76,7 +89,7 @@ const CompaniesDetails = () => {
                 </div>
                 <div className={` py-8 w-full flex flex-col items-center`}>
                     <h1 className={`text-5xl font-bold mb-12 text-center w-full text-gray-700 ${style.heading}`}>{selectedCompany.companyname}</h1>
-                    <h1 className={`text-2xl w-10/12 px-2 sm:w-5/12 mb-12 text-center w-full text-gray-700 ${style.heading}`}>{`"${selectedCompany.companymessage}"`}</h1>
+                    <h1 className={`text-2xl px-2 sm:w-5/12 mb-12 text-center w-full text-gray-700 ${style.heading}`}>{`"${selectedCompany.companymessage}"`}</h1>
                     <div className={`grid grid-cols-1 sm:grid-cols-1  w-8/12`}>
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-700 ${style.subHeading}`}>Role</h1>
@@ -107,17 +120,16 @@ const CompaniesDetails = () => {
 
                 </div>
                 <button
-
-                    className="text-lg bg-gray-700 hover:bg-gray-50 hover:border-solid hover:border-2 hover:border-gray-700 hover:text-gray-700 text-gray-50 font-bold mb-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    onClick={() => {
-                        addApplication(setLoading,selectedCompany.companyname,selectedCompany.location,selectedCompany.position,setcompanyClicked)
-                    }}
-
-                >
-                    Apply
-                </button>
+     className={`text-lg bg-gray-600 ${!alreadyApplied?'hover:bg-gray-800':''} text-gray-50 font-bold mb-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline
+     ${alreadyApplied ? 'opacity-50 cursor-not-allowed' : ''}`}
+    disabled={alreadyApplied}
+>
+  {alreadyApplied ? 'Already Applied' : 'Apply Now'}
+</button>
             </div>
         </div>
+        </>
+        }
         </>
 
     );

@@ -247,7 +247,7 @@ const UserDetails = () => {
 
             <div className='flex flex-col items-center bg-gray-700 w-full'  style={{ display: formSubmitted  ? '' : 'none' }}>
                 <div className={` py-8 w-full`}>
-                    <h1 className={`text-3xl sm:text-5xl font-bold mb-12 text-center w-full text-gray-50 ${style.heading}`}>{data.firstname!==undefined?data.firstname:firstname} { data.lastname!==undefined?data.lastname:lastname} - {data.studentId!==undefined?data.studentId:studentId}</h1>
+                    <h1 className={`text-3xl sm:text-5xl font-bold mb-12 text-center w-full text-gray-50 ${style.heading}`}>{data.firstname!==undefined?data.firstname:firstname} { data.lastname!==undefined?data.lastname:lastname} </h1>
                     <div className={`grid grid-cols-1 sm:grid-cols-2  w-full`}>
                         <div className={`flex flex-col align-start  m-4`}>
                             <h1 className={`text-3xl font-bold  pl-4 text-gray-50 ${style.subHeading}`}>Age</h1>
