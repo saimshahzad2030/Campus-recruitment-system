@@ -35,7 +35,7 @@ const Login = () => {
           // router.push('/admin/home');
           setRouteName('/admin/home')
           setLoading(false)
-          
+         
         } 
         else if(role ==='student'){
           
@@ -43,21 +43,24 @@ const Login = () => {
           setRouteName('/student/home')
 
           setLoading(false)
-
+         
         }
-        else {
+        else if(role ==='company') {
           // router.push('/company/home');
           setRouteName('/company/home')
           setLoading(false)
+       
         }
       })
-     
+      setType('')
+      setResponseMessage('')
     }
     else {
       if (!emailEntered) {
        sendVerificationEmail(email,setLoading,setEmailEntered,setType,setResponseMessage)
        setType('')
         setResponseMessage('')
+        
       }
       else if (emailEntered && !emailVerified) {
         matchToken(email,token,setLoading,setEmailVerified,setType,setResponseMessage)
