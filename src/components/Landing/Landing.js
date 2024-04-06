@@ -26,7 +26,7 @@ const Landing = () => {
       <div className={`absolute top-1/4 w-10/12 flex flex-col items-start  ${style.socials}   rounded-lg`}>
         {textArray.map((text, index) => (
 
-          <h1 className={` text-sm w-10/12  left-0 ${style.textItem} transform transition-opacity bg-gray-800 duration-500 text-white text-center px-4 py-4 rounded-md 2xl:text-5xl 2xl:w-4/12 xl:text-4xl xl:w-7/12 lg:text-2xl lg:w-6/12  sm:text-lg sm:w-6/12  font-bold mb-4 ${style.textItem} ${index === textIndex ? style.active : ''}`} key={index} >
+          <h1 className={` text-sm w-10/12  left-0 ${style.textItem} transform transition-opacity bg-gray-800 duration-500 text-white text-center px-4 py-4 rounded-md 2xl:text-5xl 2xl:w-7/12 xl:text-4xl xl:w-7/12 lg:text-2xl lg:w-6/12  sm:text-lg sm:w-6/12  font-bold mb-4 ${style.textItem} ${index === textIndex ? style.active : ''}`} key={index} >
             {text}
           </h1>
         ))}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-export const addApplication =  async ( setLoading, setcompanyClicked,jobId) => {
+export const addApplication =  async ( setLoading,setcompanyClicked,jobId) => {
     setLoading(true)
    const token = Cookies.get('token')
    const data = JSON.parse(Cookies.get('data'))
@@ -8,7 +8,7 @@ export const addApplication =  async ( setLoading, setcompanyClicked,jobId) => {
     try {
       const response = await axios.post('https://crs-backend.vercel.app/api/application',
       {
-   jobId:"660f5d072d15bb074117f2d6"
+   jobId
       },
       
       {
@@ -20,12 +20,12 @@ export const addApplication =  async ( setLoading, setcompanyClicked,jobId) => {
       if (response.status === 200) {
         setLoading(false)
         setcompanyClicked(false)
-          setFormSubmitted(true)
+        console.log(response.data)
       }
     } catch (error) {
       setLoading(false)
       setcompanyClicked(false)
-
+      console.log(error)
     }
   }
 
@@ -34,7 +34,7 @@ export const addApplication =  async ( setLoading, setcompanyClicked,jobId) => {
 export const userApplications =  async ( setLoading,setApplications) => {
     setLoading(true)
    const token = Cookies.get('token')
-   
+   console.log(token)
     try {
       const response = await axios.get('https://crs-backend.vercel.app/api/application',
       {
@@ -45,7 +45,7 @@ export const userApplications =  async ( setLoading,setApplications) => {
   
       if (response.status === 200) {
         setLoading(false)
-        setApplications(response.data.data)
+        setApplications(response.data.data) 
       }
     } catch (error) {
       setLoading(false)
@@ -59,13 +59,12 @@ export const cancelApplication =  async ( setLoading,id) => {
    const token = Cookies.get('token')
    
     try {
-      const response = await axios.delete('https://crs-backend.vercel.app/api/application',
+      const response = await axios.delete(`https://crs-backend.vercel.app/api/application?id=${id}`,
 
       {
         headers: {
             Authorization: `Bearer ${token}`,
           },
-          data: { id }
       }
       
       );

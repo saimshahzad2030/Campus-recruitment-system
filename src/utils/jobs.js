@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -112,6 +113,7 @@ export const updateJob =  async ( setLoading,id,companymessage,position,experien
     });
   
       if (response.status === 200) {
+    
         setLoading(false)
         setCompanies(response.data.data)
       }
