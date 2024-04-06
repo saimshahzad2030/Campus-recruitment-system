@@ -72,7 +72,6 @@ export const cancelApplication = createAsyncThunk(
 );
 
 
-
 // Reducer slice
 const applicationsSlice = createSlice({
   name: 'applications',
@@ -81,7 +80,18 @@ const applicationsSlice = createSlice({
     applications: [],
     error: null,
   },
-  reducers: {},
+  reducers: {
+    // Add a reducer to update application status
+    updateApplicationStatus(state, action) {
+      const { id, status } = action.payload;
+      console.log('req hitted')
+      const applicationToUpdate = state.applications.find(app => app._id === id);
+      if (applicationToUpdate) {
+        applicationToUpdate.status = status;
+        console.log(applicationToUpdate.status)
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchApplications.pending, (state) => {
@@ -134,5 +144,5 @@ const applicationsSlice = createSlice({
       });
   },
 });
-
+export const { updateApplicationStatus } = applicationsSlice.actions;
 export default applicationsSlice.reducer;

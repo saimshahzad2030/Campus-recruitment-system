@@ -128,6 +128,8 @@ export const updateUserApplication =  async ( setLoading,id,status) => {
 
     if (response.status === 200) {
       setLoading(false)
+      // socket.emit('statusChanged',id,status)
+
     }
   } catch (error) {
     setLoading(false)

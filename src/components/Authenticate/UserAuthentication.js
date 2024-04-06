@@ -145,6 +145,7 @@ const UserAuthentication = ({ children }) => {
 
            
           }
+          console.log(response.data)
           setLoading(false)
           setUserAuthenticated(true);
           return <>{children}</>

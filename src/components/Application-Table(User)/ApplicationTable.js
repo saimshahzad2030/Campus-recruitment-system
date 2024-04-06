@@ -5,14 +5,14 @@ import style from './ApplicationTable.module.css'
 // import { cancelApplication, userApplications } from '@/utils/applications'
 import Modal from '../Modal/Modal'
 import { useDispatch,useSelector } from 'react-redux'
-import { cancelApplication } from '@/redux/reducers/application-slice'
-
+import { cancelApplication,updateApplicationStatus } from '@/redux/reducers/application-slice'
+// import io from 'socket.io-client';
 const ApplicationTable = () => {
-    const [loadingScreen, setLoadingScreen] = useState(false)
+    // const socket = io('http://localhost:4000'); 
+
     const dispatch = useDispatch();
     const { applications, error,loading } = useSelector((state) => state.applications);
-   
-    // const [applications, setApplications] = useState([]);
+    
     const [id,setId] = useState(0)
     const handleCancelApplication = (id) => {
         setShowAlert(true)
@@ -28,6 +28,17 @@ const ApplicationTable = () => {
     const handleCancel = () => {
         setShowAlert(false);
     };
+
+    // useEffect(()=>{
+    //     socket.on('updatedStatus', (id,status) => {
+    //         // console.log('connected')
+    //             // setLikes(count)
+    //             console.log('id of aplication: ',id)
+    //             console.log('status of aplication: ',status)
+    //             dispatch(updateApplicationStatus({ id, status }));
+ 
+    //       });
+    // },[])
     return (
         <>
         <Modal loading={loading}/>

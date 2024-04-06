@@ -4,7 +4,26 @@ import React from 'react'
 import style from './ApplicationTable.module.css'
 import { companyApplications, updateUserApplication } from '@/utils/applications'
 import Modal from '../Modal/Modal'
+// import io from 'socket.io-client';
+
 const ApplicationTable = () => {
+    // const socket = io('https://crs-backend.vercel.app',
+    // {
+        
+    //     transports: ['websocket']
+    //  }); 
+    // useEffect(()=>{
+    //     socket.on("connect_error", (err) => { 
+    //         // the reason of the error, for example "xhr poll error"
+    //         console.log('message',err.message);
+          
+    //         // some additional description, for example the status code of the initial HTTP response
+    //         console.log('description',err.description);
+    //         console.log('code',err.code); 
+    //         // some additional context, for example the XMLHttpRequest object
+    //         console.log('context',err.context);
+    //       });
+    // },[])
     const [applications, setApplications] = useState([]);
     const [loading,setLoading] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
@@ -22,9 +41,10 @@ const ApplicationTable = () => {
 
         setId(id)
     };
-
+    
     
     const handleConfirm = () => {
+        // updateUserApplication(setLoading,id,type,socket)
         updateUserApplication(setLoading,id,type)
         setApplications(applications.filter(app => app._id !== id));
         setShowAlert(false);
@@ -86,13 +106,20 @@ const ApplicationTable = () => {
                             <td className={`px-4 py-4 border flex flex-row items-center justify-evenly `}>
                             <button
                          className="m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleOffer(application._id,'approve')}
+                         onClick={() => {
+                            handleOffer(application._id,'approve')
+                        console.log('approve clicked (client)')
+                        }}
                      >
                          Approve
                      </button>
                      <button
                          className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                         onClick={() => handleOffer(application._id,'reject')}
+                         onClick={() => {
+                            handleOffer(application._id,'reject')
+                        // console.log('reject clicked (client)')
+                        
+                        }}
                      >
                          Reject
                      </button>
