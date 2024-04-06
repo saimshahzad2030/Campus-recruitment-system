@@ -22,42 +22,70 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const [role,setRole] = useState(null)
   const router = useRouter()
+  const [responseMessage,setResponseMessage] = useState('')
+  const [type,setType] = useState('')
+  const [routeName,setRouteName] = useState('')
+ 
   const handleSubmit = (e) => {
-    
+  
     e.preventDefault();
     if (isLogin) {
-      login(email,password,setLoading,setLoginSuccesfull,(role) => {
-        // Navigate based on the role received
+      login(email,password,setLoading,setLoginSuccesfull,setType,setResponseMessage,(role) => {
         if (role === 'admin') {
-          router.push('/admin/home');
+          // router.push('/admin/home');
+          setRouteName('/admin/home')
+          setLoading(false)
+          
         } 
         else if(role ==='student'){
-          router.push('/student/home');
+          
+          // router.push('/student/home');
+          setRouteName('/student/home')
+
+          setLoading(false)
 
         }
         else {
-          router.push('/company/home');
+          // router.push('/company/home');
+          setRouteName('/company/home')
+          setLoading(false)
         }
       })
      
     }
     else {
       if (!emailEntered) {
-       sendVerificationEmail(email,setLoading,setEmailEntered)
+       sendVerificationEmail(email,setLoading,setEmailEntered,setType,setResponseMessage)
+       setType('')
+        setResponseMessage('')
       }
       else if (emailEntered && !emailVerified) {
-        matchToken(email,token,setLoading,setEmailVerified)
+        matchToken(email,token,setLoading,setEmailVerified,setType,setResponseMessage)
+        setType('')
+        setResponseMessage('')
       }
       else if (emailEntered && emailVerified) {
         let name = isChecked?companyName:username;
         let role = isChecked?'company':'student';
-        Signup(email,username,name,password,role,setLoading,setSignupSuccesfull,(role) => {
+        setType('')
+        setResponseMessage('')
+        Signup(email,username,name,password,role,setLoading,setSignupSuccesfull,setType,setResponseMessage,(role) => {
           if (role === 'student') {
-            router.push('/student/home');
-          } else {
-            router.push('/company/home');
+             
+            setLoading(false)
+            setType('')
+            setResponseMessage('')
+            setIsLogin(true)
+
+          } else if (role === 'company') { 
+            setLoading(false)
+            setType('')
+            setResponseMessage('')
+            setIsLogin(true)
+            
           }
         })
+        
       }
 
     }
@@ -78,14 +106,29 @@ const Login = () => {
       
     })
   },[])
+  const [textIndex, setTextIndex] = useState(0);
+  
+  const images = [
+    '/Assets/Landing/1.jpg',
+    '/Assets/Landing/2.jpg',
+    '/Assets/Landing/3.jpg'
+  ];
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTextIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
   return (
 
     <div className='bg-gray-700 py-12'>
-      <Modal loading={loading}/>
+      <Modal loading={loading} type = {type} message = {responseMessage} route = {routeName}/>
+      {!loading && <div>
       <h1 className={`text-5xl lg:text-6xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}>Campus Recruitment Sytem</h1>
       <div className="grid sm:grid-cols-1 lg:sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 2xl:md:grid-cols-2 ">
         <div className="flex-1 bg-gray-100 p-10 h-auto flex flex-row items-center">
-          <img src="/Assets/form/form-image.jpg" alt="Your Image" className="w-full h-auto" />
+          <img src={images[textIndex]} alt="Your Image" className="w-full h-auto opacity-70 " />
         </div>
         <div className="flex-1  p-6 sm:px-16 w-full">
           <form onSubmit={handleSubmit} className="w-full  lg:w-8/12  ">
@@ -253,6 +296,7 @@ const Login = () => {
           </p>
         </div>
       </div>
+      </div>}
 
     </div>
   );

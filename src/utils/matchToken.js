@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios";
-export const matchToken =  async (email,token,setLoading,setemailVerified) => {
+export const matchToken =  async (email,token,setLoading,setemailVerified,setType,setResponseMessage) => {
     setLoading(true)
   
     try {
@@ -10,13 +10,14 @@ export const matchToken =  async (email,token,setLoading,setemailVerified) => {
       });
   
       if (response.status === 200) {
-        setLoading(false)
-        alert(response.data.message)
+        setLoading(false) 
         setemailVerified(true)
-  
+        setType('success')
+        setResponseMessage(response.data.message) 
       }
     } catch (error) {
-      setLoading(false)
-      alert(error.response.data.message)
+      setLoading(false)  
+      setType('failed')
+      setResponseMessage(error.response.data.message)  
     }
   }

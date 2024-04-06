@@ -87,7 +87,8 @@ const UserAuthentication = ({ children }) => {
       // }
       try {
         const token = Cookies.get('token');
-        const response = await axios.get(
+        // console.log(token)
+         await axios.get(
           'https://crs-backend.vercel.app/api/authenticate',
           {
             headers: {
@@ -95,6 +96,7 @@ const UserAuthentication = ({ children }) => {
             },
           }
         ).then(response =>{
+          console.log(response.data.role)
           if (response.data.role === 'admin' && pathname !== '/admin/home'
         && pathname !== '/admin/companies'
         && pathname !== '/admin/jobs-details'
@@ -159,6 +161,7 @@ const UserAuthentication = ({ children }) => {
       } catch (error) {
         setLoading(false)
         setUserAuthenticated(false)
+        console.log(error)
         return <Unauthorized />
       }
     }

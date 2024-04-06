@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios";
-export const sendVerificationEmail =  async (email,setLoading,setEmailEntered) => {
+export const sendVerificationEmail =  async (email,setLoading,setEmailEntered,setType,setResponseMessage,set) => {
     setLoading(true)
   
     try {
@@ -11,11 +11,13 @@ export const sendVerificationEmail =  async (email,setLoading,setEmailEntered) =
       if (response.status === 200) {
         setLoading(false)
        setEmailEntered(true)
-  
+      setType('success')
+        setResponseMessage(response.data.message) 
       }
     } catch (error) {
       setLoading(false)
-      alert(error.response.data.message)
+      setType('failed')
+      setResponseMessage(error.response.data.message) 
 
     }
   }

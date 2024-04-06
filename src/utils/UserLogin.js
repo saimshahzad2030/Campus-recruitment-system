@@ -1,7 +1,7 @@
 "use client"
 import axios from "axios";
 import Cookies from "js-cookie";
-export const login =  async (email,password,setLoading,setLoginSuccesfull,callback) => {
+export const login =  async (email,password,setLoading,setLoginSuccesfull,setType,setResponseMessage,callback) => {
     setLoading(true)
    
     try {
@@ -10,9 +10,11 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
       });
   
       if (response.status === 200) {
-        setLoading(false)
         setLoginSuccesfull(true)
         Cookies.set('token',response.data.token)
+      setResponseMessage(response.data.message)
+      setType('success')
+
         if (callback) {
             callback(response.data.role);
           }
@@ -20,11 +22,13 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
     } catch (error) {
       setLoginSuccesfull(false)
       setLoading(false)
-      alert(error.response.data.message)
+      // alert(error.response.data.message)
+      setType('failed')
+      setResponseMessage(error.response.data.message)
     }
   }
 
-  export const Signup =  async (email,username,name,password,role,setLoading,setSignupSuccesfull,callback) => {
+  export const Signup =  async (email,username,name,password,role,setLoading,setSignupSuccesfull,setType,setResponseMessage,callback) => {
     setLoading(true)
     try {
       const response = await axios.post('https://crs-backend.vercel.app/api/signup', {
@@ -36,22 +40,20 @@ export const login =  async (email,password,setLoading,setLoginSuccesfull,callba
       });
   
       if (response.status === 200) {
-        setLoading(false)
         setSignupSuccesfull(true)
         Cookies.set('token',response.data.token)
-
+        setResponseMessage(response.data.message)
+        setType('success')
         if (callback) {
             callback(response.data.role);
           }
       }
-      else{
-      alert(response.data.message)
-      }
+    
     } catch (error) {
       setLoading(false)
-      setSignupSuccesfull(false)
-      alert(error.response.data.message)
-
+      setSignupSuccesfull(false) 
+      setResponseMessage(error.response.data.message)
+      setType('failed')
     }
   }
 

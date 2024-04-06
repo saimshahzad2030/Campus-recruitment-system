@@ -41,39 +41,39 @@ const CompaniesDetails = () => {
                 style={{ display: companyclicked ? 'none' : '' }}
 
             >Companies Details</h1>}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:bg-white w-11/12 mb-8`}
+           {!loading &&  <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:bg-white w-11/12 mb-8`}
 
-                style={{ display: companyclicked ? 'none' : '' }}
+style={{ display: companyclicked ? 'none' : '' }}
 
-            >
-                {companies.map((company, index) => (
-                    <div onClick={() => {
-                        if(dataExist === false){
-                            alert('You must fill your details in order to apply for some positions')
-                        }
-                        else{
-                           
-                        setSelectedCompany(company); 
-                        setcompanyClicked(true);
-                      const myFilter = applications.filter(app=>app.jobId === company._id);
-                        if (myFilter.length>0){
-                            setAlreadyApplied(true)
-                        }
-                        else{
-                            setAlreadyApplied(false)
-                        }
-                        }
-                    }}
-                        key={company._id}
-                        className={`bg-gray-700 text-gray-50 sm:bg-gray-50 sm:text-gray-700 p-4 rounded-lg cursor-pointer transition-all hover:text-gray-50 hover:bg-gray-700 duration-300 ease-in-out hover:scale-105`}
-                        style={{ minHeight: '100px' }}
-                    >
-                        <h2 className={`font-bold text-2xl  ${style.text}`}>{company.companyname}</h2>
-                        <p className={`mt-2 text-lg  ${style.text}`}>Role: {company.position}</p>
-                        <p className={`mt-1 text-sm  ${style.text}`}>{company.companymessage}</p>
-                    </div>
-                ))}
-            </div>
+>
+{companies.map((company, index) => (
+    <div onClick={() => {
+        if(dataExist === false){
+            alert('You must fill your details in order to apply for some positions')
+        }
+        else{
+           
+        setSelectedCompany(company); 
+        setcompanyClicked(true);
+      const myFilter = applications.filter(app=>app.jobId === company._id);
+        if (myFilter.length>0){
+            setAlreadyApplied(true)
+        }
+        else{
+            setAlreadyApplied(false)
+        }
+        }
+    }}
+        key={company._id}
+        className={`bg-gray-700 text-gray-50 sm:bg-gray-50 sm:text-gray-700 p-4 rounded-lg cursor-pointer transition-all hover:text-gray-50 hover:bg-gray-700 duration-300 ease-in-out hover:scale-105`}
+        style={{ minHeight: '100px' }}
+    >
+        <h2 className={`font-bold text-2xl  ${style.text}`}>{company.companyname}</h2>
+        <p className={`mt-2 text-lg  ${style.text}`}>Role: {company.position}</p>
+        <p className={`mt-1 text-sm  ${style.text}`}>{company.companymessage}</p>
+    </div>
+))}
+</div>}
 
             <div className='flex flex-col items-center bg-gray-50 w-full' style={{ display: companyclicked ? '' : 'none' }}>
                 <div className='flex flex-row items-center justify-start  cursor-pointer  w-full' onClick={() => { setcompanyClicked(false) }}>

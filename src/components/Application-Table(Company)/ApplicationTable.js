@@ -84,7 +84,7 @@ const ApplicationTable = () => {
             )}
             {applications && !loading &&  <h1 className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}>{applications.length===0?'No Applications to show':'Students Applications'}</h1>
            }
-            {applications && applications.length>0 &&
+            {applications  &&  !loading &&   applications.length>0 &&
             <div className={`overflow-x-auto ${style.main}`}>
             <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
                 <thead>
