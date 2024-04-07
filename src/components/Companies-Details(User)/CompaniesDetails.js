@@ -48,6 +48,7 @@ style={{ display: companyclicked ? 'none' : '' }}
 >
 {companies.map((company, index) => (
     <div onClick={() => {
+        console.log('data eist:', dataExist)
         if(dataExist === false){
             alert('You must fill your details in order to apply for some positions')
         }
