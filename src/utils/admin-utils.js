@@ -10,7 +10,7 @@ export const allCounts =  async (setLoading,setData) => {
  const token = Cookies.get('token')
  
   try {
-    console.log(token)
+    // console.log(token)
     const response = await axios.get('https://crs-backend.vercel.app/api/count',
     {
       headers: {
@@ -23,11 +23,11 @@ export const allCounts =  async (setLoading,setData) => {
     if (response.status === 200) {
       setLoading(false)
       setData(response.data)
-      console.log(response.data)
+      // console.log(response.data)
     }
   } catch (error) {
     setLoading(false)
-    console.log(error)
+    // console.log(error)
   }
 }
 

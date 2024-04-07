@@ -20,12 +20,12 @@ export const addApplication =  async ( setLoading,setcompanyClicked,jobId) => {
       if (response.status === 200) {
         setLoading(false)
         setcompanyClicked(false)
-        console.log(response.data)
+        // console.log(response.data)
       }
     } catch (error) {
       setLoading(false)
       setcompanyClicked(false)
-      console.log(error)
+      // console.log(error)
     }
   }
 
@@ -34,7 +34,7 @@ export const addApplication =  async ( setLoading,setcompanyClicked,jobId) => {
 export const userApplications =  async ( setLoading,setApplications) => {
     setLoading(true)
    const token = Cookies.get('token')
-   console.log(token)
+  //  console.log(token)
     try {
       const response = await axios.get('https://crs-backend.vercel.app/api/application',
       {

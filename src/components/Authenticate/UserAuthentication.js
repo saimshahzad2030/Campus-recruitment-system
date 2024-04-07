@@ -95,8 +95,7 @@ const UserAuthentication = ({ children }) => {
               Authorization: `Bearer ${token}`,
             },
           }
-        ).then(response =>{
-          console.log(response.data.role)
+        ).then(response =>{ 
           if (response.data.role === 'admin' && pathname !== '/admin/home'
         && pathname !== '/admin/companies'
         && pathname !== '/admin/jobs-details'
@@ -146,22 +145,21 @@ const UserAuthentication = ({ children }) => {
  dispatch(fetchApplications());
 
            
-          }
-          console.log(response.data)
+          } 
           setLoading(false)
           setUserAuthenticated(true);
           return <>{children}</>
 
         }
         }).finally((response)=>{
-          // dispatch(fetchApplications(applications))
-          console.log(applications)
+          // // dispatch(fetchApplications(applications))
+          // console.log(applications)
         })
         
       } catch (error) {
         setLoading(false)
         setUserAuthenticated(false)
-        console.log(error)
+        // console.log(error)
         return <Unauthorized />
       }
     }

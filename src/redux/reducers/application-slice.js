@@ -7,7 +7,7 @@ export const fetchApplications = createAsyncThunk(
   'applications/fetchApplications',
   async (cid = "", { rejectWithValue }) => {
     try {
-        console.log(token)
+        // console.log(token)
         const response = await axios.get('https://crs-backend.vercel.app/api/application',
         {
           headers: {
@@ -27,7 +27,7 @@ export const addApplication = createAsyncThunk(
   'applications/addApplications',
   async ( jobId,{ rejectWithValue }) => {
     try {
-      console.log('object')
+      // console.log('object')
     
        
       const response = await axios.post('https://crs-backend.vercel.app/api/application',
@@ -52,8 +52,9 @@ export const cancelApplication = createAsyncThunk(
   'applications/cancelApplication',
   async ( id,{ rejectWithValue }) => {
     
-   console.log('req hit')
+   console.log('Application Id: ',id)
     try {
+      // const response = await axios.delete(`https://crs-backend.vercel.app/api/application?id=${id}`,
       const response = await axios.delete(`https://crs-backend.vercel.app/api/application?id=${id}`,
 
       {
@@ -84,11 +85,11 @@ const applicationsSlice = createSlice({
     // Add a reducer to update application status
     updateApplicationStatus(state, action) {
       const { id, status } = action.payload;
-      console.log('req hitted')
+      // console.log('req hitted')
       const applicationToUpdate = state.applications.find(app => app._id === id);
       if (applicationToUpdate) {
         applicationToUpdate.status = status;
-        console.log(applicationToUpdate.status)
+        // console.log(applicationToUpdate.status)
       }
     }
   },
@@ -96,18 +97,18 @@ const applicationsSlice = createSlice({
     builder
       .addCase(fetchApplications.pending, (state) => {
         state.loading = true;
-        console.log('pending')
+        // console.log('pending')
       })
       .addCase(fetchApplications.fulfilled, (state, action) => {
         state.loading = false;
         state.applications = action.payload.data;
         state.error = null;
-
+        console.log('Applciations',state.applications)
       })
       .addCase(fetchApplications.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        console.log('rejected')
+        // console.log('rejected')
 
       })
       .addCase(addApplication.pending, (state) => {
@@ -116,8 +117,10 @@ const applicationsSlice = createSlice({
       })
       .addCase(addApplication.fulfilled, (state, action) => {
         state.loading = false;
-        state.applications.push(action.payload.data);
+        state.applications = [...state.applications, action.payload.data];
         state.error = null;
+        console.log('fulfilled')
+
         // setcompanyClicked(false)
       })
       .addCase(addApplication.rejected, (state, action) => {
@@ -131,10 +134,13 @@ const applicationsSlice = createSlice({
         console.log('pending')
       })
       .addCase(cancelApplication.fulfilled, (state, action) => {
+     
+        // state.applications.pop(action.payload)
         state.loading = false;
-        state.applications.pop(action.payload)
-       console.log(state.applications)
+        state.applications = state.applications.filter(app => app._id !== action.payload.id);
         state.error = null;
+        console.log('payload',action.payload)
+        console.log('fulfilled');
       })
       .addCase(cancelApplication.rejected, (state, action) => {
         state.loading = false;

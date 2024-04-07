@@ -1,11 +1,10 @@
 "use client"
 import { useEffect, useState } from 'react'
 import React from 'react'
-import style from './ApplicationTable.module.css'
-// import { cancelApplication, userApplications } from '@/utils/applications'
+import style from './ApplicationTable.module.css' 
 import Modal from '../Modal/Modal'
 import { useDispatch,useSelector } from 'react-redux'
-import { cancelApplication,updateApplicationStatus } from '@/redux/reducers/application-slice'
+import { cancelApplication,fetchApplications,updateApplicationStatus } from '@/redux/reducers/application-slice'
 // import io from 'socket.io-client';
 const ApplicationTable = () => {
     // const socket = io('http://localhost:4000'); 
@@ -21,7 +20,8 @@ const ApplicationTable = () => {
     const [showAlert, setShowAlert] = useState(false);
     
     const handleConfirm = () => {
-        dispatch(cancelApplication(id))
+        dispatch(cancelApplication(id)) 
+        
         setShowAlert(false);
     };
 
@@ -89,7 +89,7 @@ const ApplicationTable = () => {
                                 <button
                                     className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     onClick={() => {handleCancelApplication(application._id);
-                                                    // dispatch(removeApplication(application._id))
+                                                    console.log('application_id__application table:',application._id)
                                     }
 
                                     }

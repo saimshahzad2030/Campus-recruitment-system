@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react'
 import style from './Modal.module.css'
 import { useRouter } from 'next/navigation'
 const Modal = ({loading,type,message ,route}) => {
-  console.log('routes:',route)
+  // console.log('routes:',route)
   const [isVisible, setIsVisible] = useState(false);
 const router = useRouter()
   useEffect(() => {
@@ -15,7 +15,7 @@ const router = useRouter()
       const timeoutId = setTimeout(() => {
         if(route!=='' && message === 'login successful'){
 
-          console.log('routes:',route)
+          // console.log('routes:',route)
           router.push(route) 
         }
         else{

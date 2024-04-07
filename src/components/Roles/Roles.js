@@ -35,7 +35,7 @@ const Roles = () => {
 
         
         const jobToEdit = jobs.find(job => job._id === id);
-        console.log(jobToEdit)
+        // console.log(jobToEdit)
         const queryParams =  jobToEdit;
         const queryString = new URLSearchParams(queryParams).toString();
         if (jobToEdit) {
