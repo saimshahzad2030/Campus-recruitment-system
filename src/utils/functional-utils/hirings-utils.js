@@ -1,17 +1,17 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import {
   headersFunction,
   baseUrl,
 } from "../project-variable-utils/project-utils";
-export const hiredStudents = async (setLoading, setStudents) => {
+export const hiredStudents = async (page,setLoading, setStudents,setPages) => {
   setLoading(true);
   try {
-    const response = await axios.get(`${baseUrl}/hiring`, headersFunction());
+    const response = await axios.get(`${baseUrl}/hiring?page=${page}`, headersFunction());
 
     if (response.status === 200) {
       setLoading(false);
       setStudents(response.data.data);
+      setPages(response.data.pages);
     }
   } catch (error) {
     setLoading(false);

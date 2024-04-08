@@ -18,13 +18,14 @@ export const allCounts = async (setLoading, setData) => {
   }
 };
 
-export const allCompanies = async (setLoading, setCompanies) => {
+export const allCompanies = async (page,setLoading, setCompanies,setPages) => {
   setLoading(true);
   try {
-    const response = await axios.get(`${baseUrl}/company`, headersFunction());
+    const response = await axios.get(`${baseUrl}/company?page=${page}`, headersFunction());
     if (response.status === 200) {
       setLoading(false);
       setCompanies(response.data.data);
+      setPages(response.data.pages);
     }
   } catch (error) {
     setLoading(false);
@@ -47,24 +48,27 @@ export const deleteCompany = async (setLoading, id, email) => {
   }
 };
 
-export const allStudents = async (setLoading, setStudents) => {
-  setLoading(true);
-
+export const allStudents = async (page, setLoading, setStudents,setPages) => {
+  setLoading(true); 
   try {
     const response = await axios.get(
-      `${baseUrl}/all-students`,
+      `${baseUrl}/all-students?page=${page}`,
       headersFunction()
+      
     );
-
+    console.log(page)
     if (response.status === 200) {
       setLoading(false);
+      console.log(page,'page') 
+      console.log(response.data.data)
       setStudents(response.data.data);
+
+      setPages(response.data.pages);
     }
   } catch (error) {
     setLoading(false);
   }
 };
-
 export const deleteStudent = async (setLoading, id) => {
   setLoading(true);
   try {
@@ -83,18 +87,19 @@ export const deleteStudent = async (setLoading, id) => {
   }
 };
 
-export const allStudentsDetails = async (setLoading, setStudents) => {
+export const allStudentsDetails = async (page,setLoading, setStudents,setPages) => {
   setLoading(true);
 
   try {
     const response = await axios.get(
-      `${baseUrl}/all-student-details`,
+      `${baseUrl}/all-student-details?page=${page}`,
       headersFunction()
     );
 
     if (response.status === 200) {
       setLoading(false);
       setStudents(response.data.data);
+      setPages(response.data.pages)
     }
   } catch (error) {
     setLoading(false);
@@ -117,18 +122,19 @@ export const deleteStudentDetails = async (setLoading, id) => {
   }
 };
 
-export const allCompaniesDetails = async (setLoading, setJobs) => {
+export const allCompaniesDetails = async (page,setLoading, setJobs,setPages) => {
   setLoading(true);
 
   try {
     const response = await axios.get(
-      `${baseUrl}/all-jobs-admin`,
+      `${baseUrl}/all-jobs-admin?page=${page}`,
       headersFunction()
     );
 
     if (response.status === 200) {
       setLoading(false);
       setJobs(response.data.data);
+      setPages(response.data.pages)
     } else {
       console.log(response.data);
     }
@@ -142,13 +148,9 @@ export const deleteCompanyDetails = async (setLoading, id) => {
   const token = Cookies.get("token");
   try {
     const response = await axios.delete(
-      `${baseUrl}/api/all-jobs-admin?id=${id}`,
+      `${baseUrl}/all-jobs-admin?id=${id}`,
       headersFunction()
     );
-
-    if (response.status === 200) {
-      setLoading(false);
-    }
   } catch (error) {
     setLoading(false);
   }

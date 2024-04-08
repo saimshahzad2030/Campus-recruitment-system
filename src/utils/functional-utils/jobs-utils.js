@@ -4,18 +4,19 @@ import {
   baseUrl,
   headersFunction,
 } from "../project-variable-utils/project-utils";
-export const companyJobs = async (setLoading, setJobs) => {
+export const companyJobs = async (page,setLoading, setJobs,setPages) => {
   setLoading(true);
 
   try {
     const response = await axios.get(
-      `${baseUrl}/company-jobs`,
+      `${baseUrl}/company-jobs?page=${page}`,
       headersFunction()
     );
 
     if (response.status === 200) {
       setLoading(false);
       setJobs(response.data.data);
+      setPages(response.data.pages)
     }
   } catch (error) {
     setLoading(false);
@@ -41,8 +42,10 @@ export const updateJob = async (
     availability,
   };
   try {
+    console.log('id from axios:',id)
     const response = await axios.patch(
       `${baseUrl}/company-jobs`,
+      dataPayload,
       headersFunction()
     );
 

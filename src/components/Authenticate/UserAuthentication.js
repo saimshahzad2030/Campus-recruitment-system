@@ -22,6 +22,7 @@ const UserAuthentication = ({ children }) => {
           `${baseUrl}/authenticate`,
           headersFunction()
         );
+        
         if (
           response.data.role === "admin" &&
           pathname !== "/admin/home" &&
@@ -66,7 +67,7 @@ const UserAuthentication = ({ children }) => {
       } catch (error) {
         setLoading(false);
         setUserAuthenticated(false);
-        // console.log(error)
+        console.log(error)
         return <Unauthorized />;
       }
     }

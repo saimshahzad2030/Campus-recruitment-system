@@ -7,15 +7,18 @@ import {
   deleteCompanyDetails,
 } from "@/utils/functional-utils/admin-utils";
 import Alert from "../Alert/Alert";
+import Pagination from "../Pagination/Pagination"; 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const  [pages,setPages] = useState(0)
   const handleDeleteButton = (id) => {
     setShowAlert(true);
     setId(id);
   };
-  const [showAlert, setShowAlert] = useState(false);
 
   const handleConfirm = () => {
     deleteCompanyDetails(setLoading, id);
@@ -26,9 +29,17 @@ const Jobs = () => {
   const handleCancel = () => {
     setShowAlert(false);
   };
+
   useEffect(() => {
-    allCompaniesDetails(setLoading, setJobs);
-  }, []);
+    
+    fetchStudents(currentPage ,setPages);
+  }, [currentPage]);
+
+  const fetchStudents = (startingPage,setPages) => {
+    allCompaniesDetails(startingPage, setLoading, setJobs,setPages);
+  };
+  
+ 
   return (
     <>
       <Modal loading={loading} />
@@ -50,7 +61,7 @@ const Jobs = () => {
           {jobs.length === 0 ? "No jobs details to show" : "job Details"}
         </h1>
       )}
-      {jobs && jobs.length > 0 && (
+      {jobs && pages && !showAlert && jobs.length > 0 && (
         <div className={`overflow-x-auto`}>
           <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
@@ -111,6 +122,11 @@ const Jobs = () => {
               ))}
             </tbody>
           </table>
+          <Pagination
+        currentPage={currentPage}
+        totalPages={pages}
+        onPageChange={setCurrentPage}
+      />
         </div>
       )}
     </>

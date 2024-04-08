@@ -60,20 +60,20 @@ export const cancelApplication = async (setLoading, id) => {
   }
 };
 
-export const companyApplications = async (setLoading, setApplications) => {
+export const companyApplications = async (page,setLoading, setApplications,setPages) => {
   setLoading(true);
   try {
     const response = await axios.get(
-      `${baseUrl}/all-applications`,
+      `${baseUrl}/all-applications?page=${page}`,
       headersFunction()
     );
 
-    if (response.status === 200) {
       setLoading(false);
       setApplications(response.data.data);
-    }
-  } catch (error) {
-    setLoading(false);
+      setPages(response.data.pages); 
+    } catch (error) {
+      console.log(error.response.data)
+      setLoading(false);
   }
 };
 

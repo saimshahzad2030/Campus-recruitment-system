@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import React from "react";
 import style from "./Students.module.css";
 import Alert from "../Alert/Alert";
@@ -8,15 +8,18 @@ import {
   deleteStudentDetails,
 } from "@/utils/functional-utils/admin-utils";
 import Modal from "../Modal/Modal";
+import Pagination from "../Pagination/Pagination"; 
 const Students = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const  [pages,setPages] = useState(0)
   const handleDeleteButton = (id) => {
     setShowAlert(true);
     setId(id);
-  };
-  const [showAlert, setShowAlert] = useState(false);
+   };
 
   const handleConfirm = () => {
     deleteStudentDetails(setLoading, id);
@@ -27,9 +30,15 @@ const Students = () => {
   const handleCancel = () => {
     setShowAlert(false);
   };
-  useState(() => {
-    allStudentsDetails(setLoading, setStudents);
-  }, []);
+  useEffect(() => {
+    
+    fetchStudents(currentPage ,setPages);
+  }, [currentPage]);
+
+  const fetchStudents = (startingPage,setPages) => {
+    allStudentsDetails(startingPage, setLoading, setStudents,setPages);
+  };
+  
   return (
     <>
       <Modal loading={loading} />
@@ -53,7 +62,7 @@ const Students = () => {
             : "Student Details"}
         </h1>
       )}
-      {students && students.length > 0 && (
+      {students && pages && !showAlert && students.length > 0 && (
         <div className={`overflow-x-auto `}>
           <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
@@ -130,6 +139,11 @@ const Students = () => {
               ))}
             </tbody>
           </table>
+          <Pagination
+        currentPage={currentPage}
+        totalPages={pages}
+        onPageChange={setCurrentPage}
+      />
         </div>
       )}
     </>

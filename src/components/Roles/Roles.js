@@ -5,34 +5,39 @@ import { useRouter } from "next/navigation";
 import { companyJobs, deleteJob } from "@/utils/functional-utils/jobs-utils";
 import Modal from "../Modal/Modal";
 import Alert from "../Alert/Alert";
+import Pagination from "../Pagination/Pagination";
 const Roles = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [jobs, setJobs] = useState([]);
-  const [iD, setId] = useState(0);
+  const [id, setId] = useState(0);
   const [alertType, setAlertType] = useState("delete");
-
+  const [showAlert, setShowAlert] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const  [pages,setPages] = useState(0)
   const handleDeleteRole = (id) => {
     setAlertType("delete");
     setShowAlert(true);
-    setId(id);
+    setId(id); 
+
   };
 
   const handleEditRole = (id) => {
     setAlertType("edit");
     setShowAlert(true);
-    setId(id);
+    console.log('edit:',id)
+    setId(id); 
   };
-  const [showAlert, setShowAlert] = useState(false);
 
-  const handleConfirm = (id) => {
+  const handleConfirm = () => {
     if (alertType == "delete") {
       deleteJob(setLoading, id);
       setJobs(jobs.filter((app) => app._id !== id));
       setShowAlert(false);
     } else {
       const jobToEdit = jobs.find((job) => job._id === id);
-      // console.log(jobToEdit)
+      console.log(jobToEdit)
+      console.log(id)
       const queryParams = jobToEdit;
       const queryString = new URLSearchParams(queryParams).toString();
       if (jobToEdit) {
@@ -48,8 +53,14 @@ const Roles = () => {
     setShowAlert(false);
   };
   useEffect(() => {
-    companyJobs(setLoading, setJobs);
-  }, []);
+    
+    fetchJobs(currentPage ,setPages);
+  }, [currentPage]);
+
+  const fetchJobs = (startingPage,setPages) => {
+    companyJobs(startingPage, setLoading, setJobs,setPages);
+  };
+  
   return (
     <>
       <Modal loading={loading} />
@@ -70,14 +81,14 @@ const Roles = () => {
         />
       )}
 
-      {jobs && !loading && (
+      {jobs  && !loading && (
         <h1
           className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}
         >
           {jobs.length === 0 ? "No jobs to show" : "Published Jobs"}
         </h1>
       )}
-      {jobs && jobs.length > 0 && (
+      {jobs && pages && !showAlert  && jobs.length > 0 && (
         <div className={`overflow-x-auto ${style.main}`}>
           <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
@@ -121,7 +132,7 @@ const Roles = () => {
                   >
                     <button
                       className="m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-2 rounded sm:w-4/12    focus:outline-none focus:shadow-outline"
-                      onClick={() => handleEditRole(job._id)}
+                      onClick={() => {handleEditRole(job._id);console.log(job._id)}}
                     >
                       Edit
                     </button>
@@ -136,6 +147,11 @@ const Roles = () => {
               ))}
             </tbody>
           </table>
+          <Pagination
+        currentPage={currentPage}
+        totalPages={pages}
+        onPageChange={setCurrentPage}
+      />
         </div>
       )}
     </>

@@ -8,17 +8,21 @@ import {
 } from "@/utils/functional-utils/student-utils";
 import Modal from "../Modal/Modal";
 import Alert from "../Alert/Alert";
+
+import Pagination from "../Pagination/Pagination"; 
 const StudentDetails = () => {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
   const [student, setStudent] = useState({});
   const [id, setId] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const  [pages,setPages] = useState(0)
   const handleHireButton = (student) => {
     setShowAlert(true);
     setStudent(student);
     setId(student._id);
   };
-  const [showAlert, setShowAlert] = useState(false);
 
   const handleConfirm = () => {
     hireStudent(setLoading, student.email, student.studentId, student.position);
@@ -29,9 +33,16 @@ const StudentDetails = () => {
   const handleCancel = () => {
     setShowAlert(false);
   };
+
   useEffect(() => {
-    allStudents(setLoading, setStudents);
-  }, []);
+    
+    fetchStudents(currentPage ,setPages);
+  }, [currentPage]);
+
+  const fetchStudents = (startingPage,setPages) => {
+    allStudents(startingPage, setLoading, setStudents,setPages);
+  };
+ 
   return (
     <>
       <Modal loading={loading} />
@@ -53,7 +64,7 @@ const StudentDetails = () => {
           {students.length === 0 ? "No Students to show" : "All Students"}
         </h1>
       )}
-      {students && !loading && students.length > 0 && (
+      {students&& pages && !showAlert  && students.length > 0 && (
         <div className={`overflow-x-auto ${style.main}`}>
           <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
@@ -122,6 +133,11 @@ const StudentDetails = () => {
               ))}
             </tbody>
           </table>
+          <Pagination
+        currentPage={currentPage}
+        totalPages={pages}
+        onPageChange={setCurrentPage}
+      />
         </div>
       )}
     </>

@@ -8,15 +8,20 @@ import {
 } from "@/utils/functional-utils/hirings-utils";
 import Modal from "../Modal/Modal";
 import Alert from "../Alert/Alert";
+import Pagination from "../Pagination/Pagination"; 
+
 const HiredStudents = () => {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
   const [id, setId] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const  [pages,setPages] = useState(0)
+
   const handleRejectHireButton = (id) => {
     setShowAlert(true);
     setId(id);
   };
-  const [showAlert, setShowAlert] = useState(false);
 
   const handleConfirm = () => {
     rejectHiring(setLoading, id);
@@ -27,9 +32,16 @@ const HiredStudents = () => {
   const handleCancel = () => {
     setShowAlert(false);
   };
+
   useEffect(() => {
-    hiredStudents(setLoading, setStudents);
-  }, []);
+    
+    fetchStudents(currentPage ,setPages);
+  }, [currentPage]);
+
+  const fetchStudents = (startingPage,setPages) => {
+    hiredStudents(startingPage, setLoading, setStudents,setPages);
+  };
+  
   return (
     <>
       <Modal loading={loading} />
@@ -54,7 +66,7 @@ const HiredStudents = () => {
             : "Hired Students"}
         </h1>
       )}
-      {students && !loading && students.length > 0 && (
+      {students  && !showAlert && pages  && students.length > 0 && (
         <div className={`overflow-x-auto `}>
           <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
@@ -107,6 +119,11 @@ const HiredStudents = () => {
               ))}
             </tbody>
           </table>
+          <Pagination
+        currentPage={currentPage}
+        totalPages={pages}
+        onPageChange={setCurrentPage}
+      />
         </div>
       )}
     </>

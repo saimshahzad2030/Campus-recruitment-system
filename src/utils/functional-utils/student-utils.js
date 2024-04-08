@@ -114,17 +114,18 @@ export const updateStudentDetails = async (
   }
 };
 
-export const allStudents = async (setLoading, setStudents) => {
+export const allStudents = async (page,setLoading, setStudents,setPages) => {
   setLoading(true);
   try {
     const response = await axios.get(
-      `${baseUrl}/unemployed-students`,
+      `${baseUrl}/unemployed-students?page=${page}`,
       headersFunction()
     );
 
     if (response.status === 200) {
       setLoading(false);
       setStudents(response.data.data);
+      setPages(response.data.pages);
     }
   } catch (error) {
     setLoading(false);

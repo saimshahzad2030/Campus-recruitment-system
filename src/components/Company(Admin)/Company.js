@@ -8,12 +8,16 @@ import {
 } from "@/utils/functional-utils/admin-utils";
 import Modal from "../Modal/Modal";
 import Alert from "../Alert/Alert";
+import Pagination from "../Pagination/Pagination";
+
 const Companies = () => {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [id, setId] = useState(0);
   const [email, setEmail] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const  [pages,setPages] = useState(0)
   const handleDeleteButton = (id, email) => {
     setShowAlert(true);
     setId(id);
@@ -29,10 +33,14 @@ const Companies = () => {
   const handleCancel = () => {
     setShowAlert(false);
   };
-
   useEffect(() => {
-    allCompanies(setLoading, setCompanies);
-  }, []);
+    
+    fetchCompanies(currentPage ,setPages);
+  }, [currentPage]);
+  const fetchCompanies = (startingPage,setPages) => {
+    allCompanies(startingPage, setLoading, setCompanies,setPages);
+  };
+   
   return (
     <>
       <Modal loading={loading} />
@@ -58,7 +66,7 @@ const Companies = () => {
             : "Companies Details"}
         </h1>
       )}
-      {companies && companies.length > 0 && (
+      {companies && pages && !showAlert && companies.length > 0 && (
         <div className={`overflow-x-auto `}>
           <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
@@ -113,6 +121,11 @@ const Companies = () => {
               ))}
             </tbody>
           </table>
+          <Pagination
+        currentPage={currentPage}
+        totalPages={pages}
+        onPageChange={setCurrentPage}
+      />
         </div>
       )}
     </>

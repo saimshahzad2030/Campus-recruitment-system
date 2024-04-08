@@ -10,6 +10,8 @@ import {
   updateApplicationStatus,
 } from "@/redux/reducers/application-slice";
 import Alert from "../Alert/Alert";
+import Pagination from "../Pagination/Pagination"; 
+
 // import io from 'socket.io-client';
 const ApplicationTable = () => {
   // const socket = io('http://localhost:4000');
@@ -20,6 +22,8 @@ const ApplicationTable = () => {
   );
 
   const [id, setId] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const  [pages,setPages] = useState(0)
   const handleCancelApplication = (id) => {
     setShowAlert(true);
     setId(id);
@@ -46,6 +50,9 @@ const ApplicationTable = () => {
 
   //       });
   // },[])
+
+   
+ 
   return (
     <>
       <Modal loading={loading} />
@@ -99,7 +106,7 @@ const ApplicationTable = () => {
               </tr>
             </thead>
             <tbody>
-              {applications.map((application) => (
+              {applications.slice(0, 10).map((application) => (
                 <tr key={application.id}>
                   <td className={`px-4 py-4 border text-center `}>
                     {application.companyname}
@@ -145,6 +152,11 @@ const ApplicationTable = () => {
               ))}
             </tbody>
           </table>
+          <Pagination
+        currentPage={currentPage}
+        totalPages={pages}
+        onPageChange={setCurrentPage}
+      />
         </div>
       )}
     </>
