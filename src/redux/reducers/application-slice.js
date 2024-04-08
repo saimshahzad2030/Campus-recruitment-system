@@ -1,152 +1,102 @@
 import axios from "axios";
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-// Async thunk action creator
-const token = Cookies.get('token')
-export const fetchApplications = createAsyncThunk(
-  'applications/fetchApplications',
-  async (cid = "", { rejectWithValue }) => {
-    try {
-        // console.log(token)
-        const response = await axios.get('https://crs-backend.vercel.app/api/application',
-        {
-          headers: {
-              Authorization: `Bearer ${token}`,
-            },
-        });
-    
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
+import {
+  addApplication,
+  cancelApplication,
+  fetchAllApplications,
+} from "../reducer-services/applications";
+// import {
+//   baseUrl,
+//   headersFunction,
+// } from "@/utils/project-variable-utils/project-utils";
+
+export const fetchApplicationsThunk = createAsyncThunk(
+  "applications/fetchApplications",
+  fetchAllApplications
 );
 
-
-export const addApplication = createAsyncThunk(
-  'applications/addApplications',
-  async ( jobId,{ rejectWithValue }) => {
-    try {
-      // console.log('object')
-    
-       
-      const response = await axios.post('https://crs-backend.vercel.app/api/application',
-      {
-   jobId
-      },
-      
-      {
-        headers: {
-            Authorization: `Bearer ${token}`,
-          },
-      })
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
+export const addApplicationThunk = createAsyncThunk(
+  "applications/addApplications",
+  addApplication
 );
 
-
-export const cancelApplication = createAsyncThunk(
-  'applications/cancelApplication',
-  async ( id,{ rejectWithValue }) => {
-    
-   console.log('Application Id: ',id)
-    try {
-      // const response = await axios.delete(`https://crs-backend.vercel.app/api/application?id=${id}`,
-      const response = await axios.delete(`https://crs-backend.vercel.app/api/application?id=${id}`,
-
-      {
-        headers: {
-            Authorization: `Bearer ${token}`,
-          },
-      }
-      
-      );
-    
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
+export const cancelApplicationThunk = createAsyncThunk(
+  "applications/cancelApplication",
+  cancelApplication
 );
 
-
-// Reducer slice
 const applicationsSlice = createSlice({
-  name: 'applications',
+  name: "applications",
   initialState: {
     loading: false,
     applications: [],
     error: null,
   },
   reducers: {
-    // Add a reducer to update application status
     updateApplicationStatus(state, action) {
       const { id, status } = action.payload;
       // console.log('req hitted')
-      const applicationToUpdate = state.applications.find(app => app._id === id);
+      const applicationToUpdate = state.applications.find(
+        (app) => app._id === id
+      );
       if (applicationToUpdate) {
         applicationToUpdate.status = status;
-        // console.log(applicationToUpdate.status)
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchApplications.pending, (state) => {
+      .addCase(fetchApplicationsThunk.pending, (state) => {
         state.loading = true;
         // console.log('pending')
       })
-      .addCase(fetchApplications.fulfilled, (state, action) => {
+      .addCase(fetchApplicationsThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.applications = action.payload.data;
         state.error = null;
-        console.log('Applciations',state.applications)
+        console.log("Applciations", state.applications);
       })
-      .addCase(fetchApplications.rejected, (state, action) => {
+      .addCase(fetchApplicationsThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         // console.log('rejected')
-
       })
-      .addCase(addApplication.pending, (state) => {
+      .addCase(addApplicationThunk.pending, (state) => {
         state.loading = true;
-        console.log('pending')
+        console.log("pending");
       })
-      .addCase(addApplication.fulfilled, (state, action) => {
+      .addCase(addApplicationThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.applications = [...state.applications, action.payload.data];
         state.error = null;
-        console.log('fulfilled')
+        console.log("fulfilled");
 
         // setcompanyClicked(false)
       })
-      .addCase(addApplication.rejected, (state, action) => {
+      .addCase(addApplicationThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        console.log('rejected')
-
+        console.log("rejected");
       })
-      .addCase(cancelApplication.pending, (state) => {
+      .addCase(cancelApplicationThunk.pending, (state) => {
         state.loading = true;
-        console.log('pending')
+        console.log("pending");
       })
-      .addCase(cancelApplication.fulfilled, (state, action) => {
-     
+      .addCase(cancelApplicationThunk.fulfilled, (state, action) => {
         // state.applications.pop(action.payload)
         state.loading = false;
-        state.applications = state.applications.filter(app => app._id !== action.payload.id);
+        state.applications = state.applications.filter(
+          (app) => app._id !== action.payload.id
+        );
         state.error = null;
-        console.log('payload',action.payload)
-        console.log('fulfilled');
+        console.log("payload", action.payload);
+        console.log("fulfilled");
       })
-      .addCase(cancelApplication.rejected, (state, action) => {
+      .addCase(cancelApplicationThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        console.log('rejected')
-
+        console.log("rejected");
       });
   },
 });
