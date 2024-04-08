@@ -2,6 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import style from "./Students.module.css";
+import Alert from "../Alert/Alert";
 import {
   allStudentsDetails,
   deleteStudentDetails,
