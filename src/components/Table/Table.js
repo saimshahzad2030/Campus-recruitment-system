@@ -21,6 +21,7 @@ const Table = ({
           {columns.map((column) => (
             <th
               className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
+              key={column}
             >
               {column}
             </th>
@@ -33,7 +34,7 @@ const Table = ({
           <tr key={application._id}>
             {fieldsToDisplay.map((field) => (
               <td
-                key={field}
+                key={application._id}
                 className={`px-4 py-4 border text-center ${
                   field === "status"
                     ? application.status === "reject"
@@ -84,6 +85,7 @@ const Table = ({
               {Buttons &&
                 Buttons.map((button, index) => (
                   <button
+                    key={index}
                     className={buttonsStyles[index]}
                     onClick={() => {
                       clickHandlers[index](application._id, button);

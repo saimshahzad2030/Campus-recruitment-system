@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 
-// export const baseUrl = "https://crs-backend.vercel.app/api";
-export const baseUrl = "http://localhost:4000/api";
+export const baseUrl = "https://crs-backend.vercel.app/api";
+//export const baseUrl = "http://localhost:4000/api";
 
 export const headersFunction = () => {
   const token = Cookies.get("token");
