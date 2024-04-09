@@ -8,7 +8,8 @@ import {
 } from "@/utils/functional-utils/applications-utils";
 import Modal from "../Modal/Modal";
 import Alert from "../Alert/Alert";
-import Pagination from "../Pagination/Pagination"; 
+import Pagination from "../Pagination/Pagination";
+import Table from "../Table/Table";
 
 // import io from 'socket.io-client';
 
@@ -36,7 +37,7 @@ const ApplicationTable = () => {
   const [id, setId] = useState(0);
   const [type, setType] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const  [pages,setPages] = useState(0)
+  const [pages, setPages] = useState(0);
   const handleOffer = (id, value) => {
     if (value === "approve") {
       setType(value);
@@ -61,18 +62,13 @@ const ApplicationTable = () => {
     setShowAlert(false);
   };
   useEffect(() => {
-    
-    fetchStudents(currentPage ,setPages);
+    fetchStudents(currentPage, setPages);
   }, [currentPage]);
 
-  const fetchStudents = (startingPage,setPages) => {
-    companyApplications(startingPage, setLoading, setApplications,setPages);
+  const fetchStudents = (startingPage, setPages) => {
+    companyApplications(startingPage, setLoading, setApplications, setPages);
   };
- 
-  
-  // useEffect(() => {
-  //   console.log("useEffect apps: ", applications);
-  // }, [applications]);
+
   return (
     <>
       <Modal loading={loading} />
@@ -92,91 +88,47 @@ const ApplicationTable = () => {
           cancelClickHandler={handleCancel}
         />
       )}
-      {applications    && !loading && (
+      {applications && !loading && (
         <h1
           className={`text-center font-bold text-2xl sm:text-5xl my-12 ${style.headers}`}
         >
-          {applications.length=== 0
+          {applications.length === 0
             ? "No Applications to show"
             : "Students Applications"}
         </h1>
       )}
       {applications && !showAlert && pages && applications.length > 0 && (
         <div className={`overflow-x-auto ${style.main}`}>
-          <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
-            <thead>
-              <tr>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Student email
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Job
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Experience
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Availability
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Offer
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications.map((application) => (
-                <tr key={application.id}>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {application.appliedBy}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {application.position}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {application.experience}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {application.availability}
-                  </td>
-                  <td
-                    className={`px-4 py-4 border flex flex-row items-center justify-evenly `}
-                  >
-                    <button
-                      className="m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      onClick={() => {
-                        handleOffer(application._id, "approve");
-                       }}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      onClick={() => {
-                        handleOffer(application._id, "reject");
-                         }}
-                    >
-                      Reject
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table
+            columns={[
+              "Student email",
+              "Job",
+              "Experience",
+              "Availability",
+              "Offer",
+            ]}
+            data={applications}
+            setShowAlert={setShowAlert}
+            setId={setId}
+            currentPage={currentPage}
+            fieldsToDisplay={[
+              "appliedBy",
+              "position",
+              "experience",
+              "availability",
+            ]}
+            buttonsStyles={[
+              "m-2 text-lg bg-green-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+              "text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+            ]}
+            Buttons={["approve", "reject"]}
+            clickHandlers={[handleOffer, handleOffer]}
+          />
           <Pagination
-        currentPage={currentPage}
-        totalPages={pages}
-        onPageChange={setCurrentPage}
-      />
+            currentPage={currentPage}
+            totalPages={pages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
     </>

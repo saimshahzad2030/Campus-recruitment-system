@@ -1,16 +1,9 @@
-import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 import {
   addApplication,
   cancelApplication,
   fetchAllApplications,
 } from "../reducer-services/applications";
-// import {
-//   baseUrl,
-//   headersFunction,
-// } from "@/utils/project-variable-utils/project-utils";
-
 export const fetchApplicationsThunk = createAsyncThunk(
   "applications/fetchApplications",
   fetchAllApplications
@@ -18,12 +11,12 @@ export const fetchApplicationsThunk = createAsyncThunk(
 
 export const addApplicationThunk = createAsyncThunk(
   "applications/addApplications",
-  addApplication
+  (id) => addApplication(id)
 );
 
 export const cancelApplicationThunk = createAsyncThunk(
   "applications/cancelApplication",
-  cancelApplication
+  (id) => cancelApplication(id)
 );
 
 const applicationsSlice = createSlice({
@@ -49,18 +42,17 @@ const applicationsSlice = createSlice({
     builder
       .addCase(fetchApplicationsThunk.pending, (state) => {
         state.loading = true;
-        // console.log('pending')
+        console.log("pending");
       })
       .addCase(fetchApplicationsThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.applications = action.payload.data;
         state.error = null;
-        console.log("Applciations", state.applications);
       })
       .addCase(fetchApplicationsThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        // console.log('rejected')
+        console.log("rejected");
       })
       .addCase(addApplicationThunk.pending, (state) => {
         state.loading = true;

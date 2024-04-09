@@ -10,7 +10,8 @@ import {
   updateApplicationStatus,
 } from "@/redux/reducers/application-slice";
 import Alert from "../Alert/Alert";
-import Pagination from "../Pagination/Pagination"; 
+import Pagination from "../Pagination/Pagination";
+import Table from "../Table/Table";
 
 // import io from 'socket.io-client';
 const ApplicationTable = () => {
@@ -23,7 +24,16 @@ const ApplicationTable = () => {
 
   const [id, setId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const  [pages,setPages] = useState(0)
+  const [pages, setPages] = useState(0);
+
+  useEffect(() => {
+    // Calculate pages whenever applications changes
+    if (applications) {
+      const calculatedPages = Math.ceil(applications.length / 10);
+      setPages(calculatedPages);
+    }
+  }, [applications]); // Run effect whenever applications changes
+
   const handleCancelApplication = (id) => {
     setShowAlert(true);
     setId(id);
@@ -39,7 +49,7 @@ const ApplicationTable = () => {
   const handleCancel = () => {
     setShowAlert(false);
   };
-
+  // console.log("applications:", applications);
   // useEffect(()=>{
   //     socket.on('updatedStatus', (id,status) => {
   //         // console.log('connected')
@@ -51,8 +61,6 @@ const ApplicationTable = () => {
   //       });
   // },[])
 
-   
- 
   return (
     <>
       <Modal loading={loading} />
@@ -106,57 +114,80 @@ const ApplicationTable = () => {
               </tr>
             </thead>
             <tbody>
-              {applications.slice(0, 10).map((application) => (
-                <tr key={application.id}>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {application.companyname}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {application.position}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {application.location}
-                  </td>
-                  <td
-                    className={`px-4 py-4 border text-center font-bold  ${
-                      application.status === "reject"
-                        ? "text-red-600"
-                        : application.status === "pending"
-                        ? "text-blue-600"
-                        : application.status === "approve"
-                        ? "text-green-500"
-                        : ""
-                    }`}
-                  >
-                    {application.status === "approve"
-                      ? "approved"
-                      : application.status === "reject"
-                      ? "rejected"
-                      : application.status}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    <button
-                      className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      onClick={() => {
-                        handleCancelApplication(application._id);
-                        console.log(
-                          "application_id__application table:",
-                          application._id
-                        );
-                      }}
+              {applications
+                .slice(currentPage * 10 - 10, 10)
+                .map((application) => (
+                  <tr key={application._id}>
+                    <td className={`px-4 py-4 border text-center `}>
+                      {application.companyname}
+                    </td>
+                    <td className={`px-4 py-4 border text-center `}>
+                      {application.position}
+                    </td>
+                    <td className={`px-4 py-4 border text-center `}>
+                      {application.location}
+                    </td>
+                    <td
+                      className={`px-4 py-4 border text-center font-bold  ${
+                        application.status === "reject"
+                          ? "text-red-600"
+                          : application.status === "pending"
+                          ? "text-blue-600"
+                          : application.status === "approve"
+                          ? "text-green-500"
+                          : ""
+                      }`}
                     >
-                      Cancel
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                      {application.status === "approve"
+                        ? "approved"
+                        : application.status === "reject"
+                        ? "rejected"
+                        : application.status}
+                    </td>
+                    <td className={`px-4 py-4 border text-center `}>
+                      <button
+                        className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        onClick={() => {
+                          handleCancelApplication(application._id);
+                          console.log(
+                            "application_id__application table:",
+                            application._id
+                          );
+                          console.log("totalpages:", pages);
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
+          {/*<Table
+            columns={[
+              "Company name",
+              "Job",
+              "Location",
+              "status",
+              "Cancel Application",
+            ]}
+            data={applications}
+            setShowAlert={setShowAlert}
+            setId={setId}
+            currentPage={currentPage}
+            fieldsToDisplay={["companyname", "position", "location", "status"]}
+            buttonStyles={
+              "text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            }
+            buttonText={"Cancel"}
+            clickHandler={handleCancelApplication}
+          />
+          */}
           <Pagination
-        currentPage={currentPage}
-        totalPages={pages}
-        onPageChange={setCurrentPage}
-      />
+            currentPage={currentPage}
+            totalPages={pages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
     </>

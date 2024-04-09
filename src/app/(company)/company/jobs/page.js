@@ -1,10 +1,8 @@
-import Roles from '@/components/Roles/Roles'
-import React from 'react'
+import Roles from "@/components/Job-Details(Company)/Roles";
+import React from "react";
 
 const rolesPage = () => {
-  return (
-    <Roles/>
-  )
-}
+  return <Roles />;
+};
 
-export default rolesPage
+export default rolesPage;

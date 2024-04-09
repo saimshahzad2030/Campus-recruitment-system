@@ -9,13 +9,14 @@ import {
   deleteStudent,
 } from "@/utils/functional-utils/admin-utils";
 import Alert from "../Alert/Alert";
+import Table from "../Table/Table";
 const Students = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [id, setId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const  [pages,setPages] = useState(0)
+  const [pages, setPages] = useState(0);
 
   const handleDeleteButton = (id) => {
     setShowAlert(true);
@@ -32,12 +33,11 @@ const Students = () => {
     setShowAlert(false);
   };
   useEffect(() => {
-    
-    fetchStudents(currentPage ,setPages);
+    fetchStudents(currentPage, setPages);
   }, [currentPage]);
 
-  const fetchStudents = (startingPage,setPages) => {
-    allStudents(startingPage, setLoading, setStudents,setPages);
+  const fetchStudents = (startingPage, setPages) => {
+    allStudents(startingPage, setLoading, setStudents, setPages);
   };
   return (
     <>
@@ -62,7 +62,7 @@ const Students = () => {
       )}
       {students && pages && !showAlert && students.length > 0 && (
         <div className={`overflow-x-auto`}>
-          <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
+          {/* <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
               <tr>
                 <th
@@ -105,12 +105,25 @@ const Students = () => {
                   </tr>
                 ))}
             </tbody>
-          </table>
-            <Pagination
-        currentPage={currentPage}
-        totalPages={pages}
-        onPageChange={setCurrentPage}
-      />
+          </table> */}
+          <Table
+            columns={["Email", "Username", "Action"]}
+            data={students}
+            setShowAlert={setShowAlert}
+            setId={setId}
+            currentPage={currentPage}
+            fieldsToDisplay={["email", "username"]}
+            buttonStyles={
+              "text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            }
+            buttonText={"Delete"}
+            clickHandler={handleDeleteButton}
+          />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
     </>

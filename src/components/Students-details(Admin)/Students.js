@@ -1,5 +1,5 @@
 "use client";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import style from "./Students.module.css";
 import Alert from "../Alert/Alert";
@@ -8,18 +8,19 @@ import {
   deleteStudentDetails,
 } from "@/utils/functional-utils/admin-utils";
 import Modal from "../Modal/Modal";
-import Pagination from "../Pagination/Pagination"; 
+import Pagination from "../Pagination/Pagination";
+import Table from "../Table/Table";
 const Students = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const  [pages,setPages] = useState(0)
+  const [pages, setPages] = useState(0);
   const handleDeleteButton = (id) => {
     setShowAlert(true);
     setId(id);
-   };
+  };
 
   const handleConfirm = () => {
     deleteStudentDetails(setLoading, id);
@@ -31,14 +32,13 @@ const Students = () => {
     setShowAlert(false);
   };
   useEffect(() => {
-    
-    fetchStudents(currentPage ,setPages);
+    fetchStudents(currentPage, setPages);
   }, [currentPage]);
 
-  const fetchStudents = (startingPage,setPages) => {
-    allStudentsDetails(startingPage, setLoading, setStudents,setPages);
+  const fetchStudents = (startingPage, setPages) => {
+    allStudentsDetails(startingPage, setLoading, setStudents, setPages);
   };
-  
+
   return (
     <>
       <Modal loading={loading} />
@@ -64,86 +64,39 @@ const Students = () => {
       )}
       {students && pages && !showAlert && students.length > 0 && (
         <div className={`overflow-x-auto `}>
-          <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
-            <thead>
-              <tr>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Id
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Name
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  obtained marks
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Faculty
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Tech
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Experience
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((student) => (
-                <tr key={student.id}>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.studentId}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.firstname} {student.lastname}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.obtainedmarks}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.faculty}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.position}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.experience}
-                  </td>
-                  <td
-                    className={`px-4 py-4 border flex flex-row items-center justify-evenly `}
-                  >
-                    <button
-                      className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      onClick={() => handleDeleteButton(student._id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table
+            columns={[
+              "Id",
+              "Name",
+              "Obtained Marks",
+              "Faculty",
+              "Tech",
+              "Experience",
+              "Action",
+            ]}
+            data={students}
+            setShowAlert={setShowAlert}
+            setId={setId}
+            currentPage={currentPage}
+            fieldsToDisplay={[
+              "studentId",
+              "firstname",
+              "obtainedmarks",
+              "faculty",
+              "position",
+              "experience",
+            ]}
+            buttonStyles={
+              "text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            }
+            buttonText={"Delete"}
+            clickHandler={handleDeleteButton}
+          />
           <Pagination
-        currentPage={currentPage}
-        totalPages={pages}
-        onPageChange={setCurrentPage}
-      />
+            currentPage={currentPage}
+            totalPages={pages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
     </>

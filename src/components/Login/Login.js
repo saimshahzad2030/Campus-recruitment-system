@@ -139,14 +139,13 @@ const Login = () => {
     return () => clearInterval(intervalId);
   }, []);
   return (
-    <div className="bg-gray-700 py-12">
+    <div className="bg-gray-700 py-12 md:h-screen">
       <Modal
         loading={loading}
         type={type}
         message={responseMessage}
         route={routeName}
-      />
-      {!loading && (
+      >
         <div>
           <h1
             className={`text-5xl lg:text-6xl font-bold mb-12 text-center text-gray-50 ${style.heading}`}
@@ -350,7 +349,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      )}
+      </Modal>
     </div>
   );
 };

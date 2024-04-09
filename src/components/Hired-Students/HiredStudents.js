@@ -8,7 +8,8 @@ import {
 } from "@/utils/functional-utils/hirings-utils";
 import Modal from "../Modal/Modal";
 import Alert from "../Alert/Alert";
-import Pagination from "../Pagination/Pagination"; 
+import Pagination from "../Pagination/Pagination";
+import Table from "../Table/Table";
 
 const HiredStudents = () => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ const HiredStudents = () => {
   const [id, setId] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const  [pages,setPages] = useState(0)
+  const [pages, setPages] = useState(0);
 
   const handleRejectHireButton = (id) => {
     setShowAlert(true);
@@ -34,14 +35,13 @@ const HiredStudents = () => {
   };
 
   useEffect(() => {
-    
-    fetchStudents(currentPage ,setPages);
+    fetchStudents(currentPage, setPages);
   }, [currentPage]);
 
-  const fetchStudents = (startingPage,setPages) => {
-    hiredStudents(startingPage, setLoading, setStudents,setPages);
+  const fetchStudents = (startingPage, setPages) => {
+    hiredStudents(startingPage, setLoading, setStudents, setPages);
   };
-  
+
   return (
     <>
       <Modal loading={loading} />
@@ -66,9 +66,9 @@ const HiredStudents = () => {
             : "Hired Students"}
         </h1>
       )}
-      {students  && !showAlert && pages  && students.length > 0 && (
+      {students && !showAlert && pages && students.length > 0 && (
         <div className={`overflow-x-auto `}>
-          <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
+          {/* <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
             <thead>
               <tr>
                 <th
@@ -118,12 +118,25 @@ const HiredStudents = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
+          <Table
+            columns={["Student Id", "Student email", "Job", "Reject Hiring"]}
+            data={students}
+            setShowAlert={setShowAlert}
+            setId={setId}
+            currentPage={currentPage}
+            fieldsToDisplay={["studentId", "email", "position"]}
+            buttonStyles={
+              "text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            }
+            buttonText={"Reject Hiring"}
+            clickHandler={handleRejectHireButton}
+          />
           <Pagination
-        currentPage={currentPage}
-        totalPages={pages}
-        onPageChange={setCurrentPage}
-      />
+            currentPage={currentPage}
+            totalPages={pages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
     </>

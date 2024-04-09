@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./Modal.module.css";
 import { useRouter } from "next/navigation";
-const Modal = ({ loading, type, message, route }) => {
+const Modal = ({ loading, type, message, route, children }) => {
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -52,7 +52,9 @@ const Modal = ({ loading, type, message, route }) => {
         <p className="text-center">{message}</p>
       </div>
     </div>
-  ) : null;
+  ) : (
+    children
+  );
 };
 
 export default Modal;

@@ -14,77 +14,77 @@ const AdminHome = () => {
 
   return (
     <>
-      <Modal loading={loading} />
-      {data && (
-        <>
-          {" "}
-          <div
-            className={`grid grid-cols-1 sm:grid-cols-3 gap-4 ${style.main}`}
-          >
+      <Modal loading={loading}>
+        {data && (
+          <>
             <div
-              className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-pink-300 hover:text-white ${style.expandContent}`}
+              className={`grid grid-cols-1 sm:grid-cols-3 gap-4 ${style.main}`}
             >
-              <h3 className="text-xl font-bold">User Resumes</h3>
-              <p className="mt-2 text-5xl font-bold">
-                <CountUp end={data.studentDetails} duration={3} />
-              </p>
-            </div>
+              <div
+                className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-pink-300 hover:text-white ${style.expandContent}`}
+              >
+                <h3 className="text-xl font-bold">User Resumes</h3>
+                <p className="mt-2 text-5xl font-bold">
+                  <CountUp end={data.studentDetails} duration={3} />
+                </p>
+              </div>
 
-            <div
-              className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-teal-300 hover:text-white ${style.expandContent}`}
-            >
-              <h3 className="text-xl font-bold">Companies</h3>
-              <p className="mt-2 text-5xl font-bold">
-                <CountUp end={data.companies} duration={3} />
-              </p>
-            </div>
+              <div
+                className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-teal-300 hover:text-white ${style.expandContent}`}
+              >
+                <h3 className="text-xl font-bold">Companies</h3>
+                <p className="mt-2 text-5xl font-bold">
+                  <CountUp end={data.companies} duration={3} />
+                </p>
+              </div>
 
-            <div
-              className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-indigo-300 hover:text-white ${style.expandContent}`}
-            >
-              <h3 className="text-xl font-bold">Applications</h3>
-              <p className="mt-2 text-5xl font-bold">
-                <CountUp end={data.applications} duration={3} />
-              </p>
-            </div>
+              <div
+                className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-indigo-300 hover:text-white ${style.expandContent}`}
+              >
+                <h3 className="text-xl font-bold">Applications</h3>
+                <p className="mt-2 text-5xl font-bold">
+                  <CountUp end={data.applications} duration={3} />
+                </p>
+              </div>
 
-            <div
-              className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-orange-300 hover:text-white ${style.expandContent}`}
-            >
-              <h3 className="text-xl font-bold">Approved Applications</h3>
-              <p className="mt-2 text-5xl font-bold">
-                <CountUp end={data.approvedApplications} duration={3} />
-              </p>
-            </div>
+              <div
+                className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-orange-300 hover:text-white ${style.expandContent}`}
+              >
+                <h3 className="text-xl font-bold">Approved Applications</h3>
+                <p className="mt-2 text-5xl font-bold">
+                  <CountUp end={data.approvedApplications} duration={3} />
+                </p>
+              </div>
 
-            <div
-              className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-blue-300 hover:text-white ${style.expandContent}`}
-            >
-              <h3 className="text-xl font-bold">Rejected Applications</h3>
-              <p className="mt-2 text-5xl font-bold">
-                <CountUp end={data.rejectedApplications} duration={3} />
-              </p>
-            </div>
-            <div
-              className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-green-300 hover:text-white ${style.expandContent}`}
-            >
-              <h3 className="text-xl font-bold">Pending Applications</h3>
-              <p className="mt-2 text-5xl font-bold">
-                <CountUp end={data.pendingApplications} duration={3} />
-              </p>
-            </div>
+              <div
+                className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-blue-300 hover:text-white ${style.expandContent}`}
+              >
+                <h3 className="text-xl font-bold">Rejected Applications</h3>
+                <p className="mt-2 text-5xl font-bold">
+                  <CountUp end={data.rejectedApplications} duration={3} />
+                </p>
+              </div>
+              <div
+                className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-green-300 hover:text-white ${style.expandContent}`}
+              >
+                <h3 className="text-xl font-bold">Pending Applications</h3>
+                <p className="mt-2 text-5xl font-bold">
+                  <CountUp end={data.pendingApplications} duration={3} />
+                </p>
+              </div>
 
-            <div
-              className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-purple-300 hover:text-white ${style.expandContent}`}
-            >
-              <h3 className="text-xl font-bold">Hirings</h3>
-              <p className="mt-2 text-5xl font-bold">
-                <CountUp end={data.hirings} duration={3} />
-              </p>
+              <div
+                className={`m-4 col-span-1 text-center bg-gray-200 py-16 px-2 hover:bg-purple-300 hover:text-white ${style.expandContent}`}
+              >
+                <h3 className="text-xl font-bold">Hirings</h3>
+                <p className="mt-2 text-5xl font-bold">
+                  <CountUp end={data.hirings} duration={3} />
+                </p>
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </Modal>
     </>
   );
 };

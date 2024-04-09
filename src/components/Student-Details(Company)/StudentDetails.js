@@ -9,7 +9,8 @@ import {
 import Modal from "../Modal/Modal";
 import Alert from "../Alert/Alert";
 
-import Pagination from "../Pagination/Pagination"; 
+import Pagination from "../Pagination/Pagination";
+import Table from "../Table/Table";
 const StudentDetails = () => {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
@@ -17,7 +18,7 @@ const StudentDetails = () => {
   const [id, setId] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const  [pages,setPages] = useState(0)
+  const [pages, setPages] = useState(0);
   const handleHireButton = (student) => {
     setShowAlert(true);
     setStudent(student);
@@ -35,14 +36,13 @@ const StudentDetails = () => {
   };
 
   useEffect(() => {
-    
-    fetchStudents(currentPage ,setPages);
+    fetchStudents(currentPage, setPages);
   }, [currentPage]);
 
-  const fetchStudents = (startingPage,setPages) => {
-    allStudents(startingPage, setLoading, setStudents,setPages);
+  const fetchStudents = (startingPage, setPages) => {
+    allStudents(startingPage, setLoading, setStudents, setPages);
   };
- 
+
   return (
     <>
       <Modal loading={loading} />
@@ -64,80 +64,39 @@ const StudentDetails = () => {
           {students.length === 0 ? "No Students to show" : "All Students"}
         </h1>
       )}
-      {students&& pages && !showAlert  && students.length > 0 && (
+      {students && pages && !showAlert && students.length > 0 && (
         <div className={`overflow-x-auto ${style.main}`}>
-          <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
-            <thead>
-              <tr>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Id
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  name
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  obtained marks
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Tech
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  faculty
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Hire
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((student) => (
-                <tr key={student.id}>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.studentId}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.firstname} {student.lastname}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.obtainedmarks}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.position}
-                  </td>
-                  <td className={`px-4 py-4 border text-center `}>
-                    {student.faculty}
-                  </td>
-                  <td
-                    className={`px-4 py-4 border flex flex-row items-center justify-evenly `}
-                  >
-                    <button
-                      className="text-lg bg-green-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      onClick={() => handleHireButton(student)}
-                    >
-                      Hire
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table
+            columns={[
+              "Id",
+              "Name",
+              "Marks Obtained",
+              "Position",
+              "Faculty",
+              "Action",
+            ]}
+            data={students}
+            setShowAlert={setShowAlert}
+            setId={setId}
+            currentPage={currentPage}
+            fieldsToDisplay={[
+              "studentId",
+              "firstname",
+              "obtainedmarks",
+              "position",
+              "faculty",
+            ]}
+            buttonStyles={
+              "text-lg bg-green-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            }
+            buttonText={"Hire"}
+            clickHandler={handleHireButton}
+          />
           <Pagination
-        currentPage={currentPage}
-        totalPages={pages}
-        onPageChange={setCurrentPage}
-      />
+            currentPage={currentPage}
+            totalPages={pages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
     </>
