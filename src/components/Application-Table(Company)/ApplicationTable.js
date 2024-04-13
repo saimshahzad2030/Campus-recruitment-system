@@ -50,10 +50,8 @@ const ApplicationTable = () => {
   };
 
   const handleConfirm = () => {
-    // updateUserApplication(setLoading,id,type,socket)
-    console.log("clicked");
-    updateUserApplication(setLoading, id, type);
-    console.log("id:", id);
+    // updateUserApplication(setLoading,id,type,socket) 
+    updateUserApplication(setLoading, id, type); 
     setApplications(applications.filter((app) => app._id !== id));
     setShowAlert(false);
   };

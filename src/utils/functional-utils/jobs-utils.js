@@ -41,8 +41,7 @@ export const updateJob = async (
     location,
     availability,
   };
-  try {
-    console.log('id from axios:',id)
+  try { 
     const response = await axios.patch(
       `${baseUrl}/company-jobs`,
       dataPayload,

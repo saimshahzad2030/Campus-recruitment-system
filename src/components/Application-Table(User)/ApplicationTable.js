@@ -60,7 +60,9 @@ const ApplicationTable = () => {
 
   //       });
   // },[])
-
+useEffect(()=>{
+console.log(currentPage,'current page')
+},[currentPage])
   return (
     <>
       <Modal loading={loading} />
@@ -83,87 +85,7 @@ const ApplicationTable = () => {
       )}
       {applications && !loading && applications.length > 0 && (
         <div className={`overflow-x-auto`}>
-          <table className="table-auto w-full border-collapse border border-gray-300 mb-12">
-            <thead>
-              <tr>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Company name
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Role
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Location
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Status
-                </th>
-                <th
-                  className={`px-4 py-2 bg-gray-700 text-gray-50 border text-2xl `}
-                >
-                  Cancel Application
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications
-                .slice(currentPage * 10 - 10, 10)
-                .map((application) => (
-                  <tr key={application._id}>
-                    <td className={`px-4 py-4 border text-center `}>
-                      {application.companyname}
-                    </td>
-                    <td className={`px-4 py-4 border text-center `}>
-                      {application.position}
-                    </td>
-                    <td className={`px-4 py-4 border text-center `}>
-                      {application.location}
-                    </td>
-                    <td
-                      className={`px-4 py-4 border text-center font-bold  ${
-                        application.status === "reject"
-                          ? "text-red-600"
-                          : application.status === "pending"
-                          ? "text-blue-600"
-                          : application.status === "approve"
-                          ? "text-green-500"
-                          : ""
-                      }`}
-                    >
-                      {application.status === "approve"
-                        ? "approved"
-                        : application.status === "reject"
-                        ? "rejected"
-                        : application.status}
-                    </td>
-                    <td className={`px-4 py-4 border text-center `}>
-                      <button
-                        className="text-lg bg-red-600 text-gray-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        onClick={() => {
-                          handleCancelApplication(application._id);
-                          console.log(
-                            "application_id__application table:",
-                            application._id
-                          );
-                          console.log("totalpages:", pages);
-                        }}
-                      >
-                        Cancel
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-          {/*<Table
+          <Table
             columns={[
               "Company name",
               "Job",
@@ -172,8 +94,6 @@ const ApplicationTable = () => {
               "Cancel Application",
             ]}
             data={applications}
-            setShowAlert={setShowAlert}
-            setId={setId}
             currentPage={currentPage}
             fieldsToDisplay={["companyname", "position", "location", "status"]}
             buttonStyles={
@@ -181,8 +101,9 @@ const ApplicationTable = () => {
             }
             buttonText={"Cancel"}
             clickHandler={handleCancelApplication}
+            tableType={'client'}
           />
-          */}
+         
           <Pagination
             currentPage={currentPage}
             totalPages={pages}

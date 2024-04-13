@@ -55,14 +55,10 @@ export const allStudents = async (page, setLoading, setStudents,setPages) => {
       `${baseUrl}/all-students?page=${page}`,
       headersFunction()
       
-    );
-    console.log(page)
+    ); 
     if (response.status === 200) {
-      setLoading(false);
-      console.log(page,'page') 
-      console.log(response.data.data)
+      setLoading(false); 
       setStudents(response.data.data);
-
       setPages(response.data.pages);
     }
   } catch (error) {
@@ -80,9 +76,7 @@ export const deleteStudent = async (setLoading, id) => {
     if (response.status === 200) {
       setLoading(false);
     }
-  } catch (error) {
-    console.log(error);
-
+  } catch (error) { 
     setLoading(false);
   }
 };
@@ -135,9 +129,7 @@ export const allCompaniesDetails = async (page,setLoading, setJobs,setPages) => 
       setLoading(false);
       setJobs(response.data.data);
       setPages(response.data.pages)
-    } else {
-      console.log(response.data);
-    }
+    } 
   } catch (error) {
     setLoading(false);
   }

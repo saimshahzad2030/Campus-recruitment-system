@@ -8,8 +8,7 @@ const slice = createSlice({
   name: "student-details",
   initialState,
   reducers: {
-    fetchDetails: (state, action) => {
-      console.log(action);
+    fetchDetails: (state, action) => { 
       state.studentDetails = action.payload;
     },
     // updateDetails:(state, action) => {

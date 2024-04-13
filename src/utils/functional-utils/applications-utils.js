@@ -71,8 +71,7 @@ export const companyApplications = async (page,setLoading, setApplications,setPa
       setLoading(false);
       setApplications(response.data.data);
       setPages(response.data.pages); 
-    } catch (error) {
-      console.log(error.response.data)
+    } catch (error) { 
       setLoading(false);
   }
 };
@@ -88,8 +87,7 @@ export const updateUserApplication = async (setLoading, id, status) => {
     );
 
     if (response.status === 200) {
-      setLoading(false);
-      console.log("200");
+      setLoading(false); 
     }
   } catch (error) {
     setLoading(false);

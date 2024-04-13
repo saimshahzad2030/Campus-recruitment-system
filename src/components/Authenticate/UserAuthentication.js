@@ -66,19 +66,14 @@ const UserAuthentication = ({ children }) => {
         }
       } catch (error) {
         setLoading(false);
-        setUserAuthenticated(false);
-        console.log(error);
+        setUserAuthenticated(false); 
         return <Unauthorized />;
       }
     }
 
     checkAuthentication();
   }, [loading, userAuthenticated]);
-  //   useEffect(()=>{
-  //     dispatch(fetchApplications(applications[applications.length-1]))
-  // // console.log(applications)
-  //     // console.log('applications:',applications)
-  //     },[applications])
+ 
 
   if (!userAuthenticated && !loading) {
     return <Unauthorized />;

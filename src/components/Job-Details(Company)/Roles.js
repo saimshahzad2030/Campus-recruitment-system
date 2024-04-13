@@ -24,8 +24,7 @@ const Roles = () => {
 
   const handleEditRole = (id) => {
     setAlertType("edit");
-    setShowAlert(true);
-    console.log("edit:", id);
+    setShowAlert(true); 
     setId(id);
   };
 
@@ -36,8 +35,7 @@ const Roles = () => {
       setShowAlert(false);
     } else {
       const jobToEdit = jobs.find((job) => job._id === id);
-      console.log(jobToEdit);
-      console.log(id);
+ 
       const queryParams = jobToEdit;
       const queryString = new URLSearchParams(queryParams).toString();
       if (jobToEdit) {

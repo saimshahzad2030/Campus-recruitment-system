@@ -28,8 +28,7 @@ const CompaniesDetails = () => {
       Cookies.get("data") !== undefined && JSON.parse(Cookies.get("data"))
     );
   }, [loading]);
-
-  // console.log('applications:',applications)
+ 
 
   return (
     <>
@@ -52,8 +51,7 @@ const CompaniesDetails = () => {
               >
                 {companies.map((company, index) => (
                   <div
-                    onClick={() => {
-                      // console.log('data eist:', dataExist)
+                    onClick={() => { 
                       if (dataExist === false) {
                         alert(
                           "You must fill your details in order to apply for some positions"

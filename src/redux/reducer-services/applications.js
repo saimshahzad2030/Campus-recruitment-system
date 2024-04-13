@@ -9,11 +9,9 @@ export const fetchAllApplications = async () => {
       `${baseUrl}/application`,
       headersFunction()
     );
-
-    console.log("response:", response.data);
+ 
     return response.data;
-  } catch (error) {
-    console.log(error.response.data.message);
+  } catch (error) { 
     return error.message;
   }
 };
@@ -28,14 +26,12 @@ export const addApplication = async (jobId) => {
       headersFunction()
     );
     return response.data;
-  } catch (error) {
-    console.log(error.response.data.message);
+  } catch (error) { 
     return error.message;
   }
 };
 
-export const cancelApplication = async (id) => {
-  console.log("Application Id: ", id);
+export const cancelApplication = async (id) => { 
   try {
     const response = await axios.delete(
       `${baseUrl}/application?id=${id}`,
@@ -43,22 +39,8 @@ export const cancelApplication = async (id) => {
     );
 
     return response.data;
-  } catch (error) {
-    console.log(error.response.data.message);
+  } catch (error) { 
     return error.message;
   }
 };
-
-// export const cancelApplication = async (id, { rejectWithValue }) => {
-//   console.log("Application Id: ", id);
-//   try {
-//     const response = await axios.delete(
-//       `${baseUrl}/application?id=${id}`,
-//       headersFunction()
-//     );
-
-//     return response.data;
-//   } catch (error) {
-//     return rejectWithValue(error.message);
-//   }
-// };
+ 

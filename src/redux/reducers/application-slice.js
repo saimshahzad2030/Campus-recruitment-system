@@ -28,8 +28,7 @@ const applicationsSlice = createSlice({
   },
   reducers: {
     updateApplicationStatus(state, action) {
-      const { id, status } = action.payload;
-      // console.log('req hitted')
+      const { id, status } = action.payload; 
       const applicationToUpdate = state.applications.find(
         (app) => app._id === id
       );
@@ -41,8 +40,7 @@ const applicationsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchApplicationsThunk.pending, (state) => {
-        state.loading = true;
-        console.log("pending");
+        state.loading = true; 
       })
       .addCase(fetchApplicationsThunk.fulfilled, (state, action) => {
         state.loading = false;
@@ -51,29 +49,23 @@ const applicationsSlice = createSlice({
       })
       .addCase(fetchApplicationsThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-        console.log("rejected");
+        state.error = action.payload; 
       })
       .addCase(addApplicationThunk.pending, (state) => {
-        state.loading = true;
-        console.log("pending");
+        state.loading = true; 
       })
       .addCase(addApplicationThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.applications = [...state.applications, action.payload.data];
-        state.error = null;
-        console.log("fulfilled");
-
-        // setcompanyClicked(false)
+        state.error = null; 
+ 
       })
       .addCase(addApplicationThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-        console.log("rejected");
+        state.error = action.payload; 
       })
       .addCase(cancelApplicationThunk.pending, (state) => {
-        state.loading = true;
-        console.log("pending");
+        state.loading = true; 
       })
       .addCase(cancelApplicationThunk.fulfilled, (state, action) => {
         // state.applications.pop(action.payload)
@@ -81,14 +73,11 @@ const applicationsSlice = createSlice({
         state.applications = state.applications.filter(
           (app) => app._id !== action.payload.id
         );
-        state.error = null;
-        console.log("payload", action.payload);
-        console.log("fulfilled");
+        state.error = null; 
       })
       .addCase(cancelApplicationThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-        console.log("rejected");
+        state.error = action.payload; 
       });
   },
 });

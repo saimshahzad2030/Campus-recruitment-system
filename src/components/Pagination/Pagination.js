@@ -5,9 +5,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
-  }
-console.log(currentPage,'current')
-console.log(totalPages,'total')
+  } 
   return (
     <div className="grid grid-cols-4">
         <div></div>
